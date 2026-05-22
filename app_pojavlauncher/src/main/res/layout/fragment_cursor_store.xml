@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.kdt.DefocusableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/fragment_padding_medium"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="40dp">
+
+        <TextView
+            android:id="@+id/cursor_title"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cursor_store_title"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="@dimen/padding_large" />
+
+        <TextView
+            android:id="@+id/cursor_subtitle"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cursor_store_subtitle"
+            android:textColor="#AAAAAA"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginBottom="@dimen/padding_large" />
+
+        <View
+            style="@style/ThickDivider"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/padding_large" />
+
+        <!-- Grid of Cursor Cards (4 Presets) -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="2"
+            android:useDefaultMargins="true"
+            android:alignmentMode="alignBounds"
+            android:layout_marginBottom="@dimen/padding_medium">
+
+            <!-- Preset 1: Standard -->
+            <LinearLayout
+                android:id="@+id/card_cursor_standard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:background="@drawable/background_card"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_medium"
+                android:gravity="center_horizontal"
+                android:layout_margin="4dp">
+                <ImageView
+                    android:id="@+id/preview_standard"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cursor_preset_standard"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Preset 2: Sci-Fi Neon -->
+            <LinearLayout
+                android:id="@+id/card_cursor_scifi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:background="@drawable/background_card"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_medium"
+                android:gravity="center_horizontal"
+                android:layout_margin="4dp">
+                <ImageView
+                    android:id="@+id/preview_scifi"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cursor_preset_neon"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Preset 3: Normal Select v3.0 (.cur) -->
+            <LinearLayout
+                android:id="@+id/card_cursor_v3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:background="@drawable/background_card"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_medium"
+                android:gravity="center_horizontal"
+                android:layout_margin="4dp">
+                <ImageView
+                    android:id="@+id/preview_v3"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Normal Select v3"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Preset 4: Animated Select (.ani) -->
+            <LinearLayout
+                android:id="@+id/card_cursor_ani"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:background="@drawable/background_card"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_medium"
+                android:gravity="center_horizontal"
+                android:layout_margin="4dp">
+                <ImageView
+                    android:id="@+id/preview_ani"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cursor_preset_animated"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </GridLayout>
+
+        <!-- Custom Card with upload and inline edit buttons -->
+        <LinearLayout
+            android:id="@+id/card_cursor_custom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_card"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_medium"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/padding_large">
+
+            <ImageView
+                android:id="@+id/preview_custom"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/custom_upload_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cursor_user_custom"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <com.kdt.mcgui.MineButton
+                    android:id="@+id/btn_custom_upload"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/cursor_btn_upload" />
+
+                <com.kdt.mcgui.MineButton
+                    android:id="@+id/btn_custom_edit_current"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/cursor_btn_edit" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Cursor Size Settings -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_card"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_medium"
+            android:layout_marginBottom="@dimen/padding_large">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/cursor_size_label"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txt_cursor_size_val"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100%"
+                    android:textColor="@color/minebutton_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/seek_cursor_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:max="280"
+                android:progress="80" />
+        </LinearLayout>
+
+        <!-- Interactive Test Zone Touchpad -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_card"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_medium"
+            android:layout_marginBottom="@dimen/padding_large">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cursor_test_zone_title"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <FrameLayout
+                android:id="@+id/cursor_test_pad"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:background="#151515">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cursor_test_zone_hint"
+                    android:textColor="#555555"
+                    android:textSize="12sp"
+                    android:layout_gravity="center" />
+
+                <!-- The test pointer widget -->
+                <ImageView
+                    android:id="@+id/test_pointer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Inline Custom Cursor Editor (Hidden by default) -->
+        <LinearLayout
+            android:id="@+id/panel_cursor_editor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_card"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_medium"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cursor_editor_title"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Transparency Checkboard FrameLayout container -->
+            <FrameLayout
+                android:id="@+id/editor_checkboard_container"
+                android:layout_width="match_parent"
+                android:layout_height="240dp">
+
+                <ImageView
+                    android:id="@+id/editor_checkboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:layout_gravity="center"
+                    android:padding="20dp" />
+            </FrameLayout>
+
+            <!-- Editor controls (Flood erase, Manual eraser, Auto-cut) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:gravity="center">
+
+                <com.kdt.mcgui.MineButton
+                    android:id="@+id/btn_editor_flood"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="2dp"
+                    android:text="@string/cursor_editor_btn_flood" />
+
+                <com.kdt.mcgui.MineButton
+                    android:id="@+id/btn_editor_manual_eraser"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="2dp"
+                    android:text="@string/cursor_editor_btn_manual" />
+
+                <com.kdt.mcgui.MineButton
+                    android:id="@+id/btn_editor_autocut"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="2dp"
+                    android:text="@string/cursor_editor_btn_autocut" />
+            </LinearLayout>
+
+            <!-- Adaptive Sensitivity / Size slider -->
+            <LinearLayout
+                android:id="@+id/layout_brush_or_threshold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/txt_slider_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/cursor_editor_sensitivity"
+                        android:textColor="#CCCCCC"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/txt_slider_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="45"
+                        android:textColor="@color/minebutton_color"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/seek_brush_or_threshold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="150"
+                    android:progress="45" />
+            </LinearLayout>
+
+            <!-- Actions row: Undo, Cancel, Save -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <com.kdt.mcgui.MineButton
+                    android:id="@+id/btn_editor_undo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="2dp"
+                    android:text="@string/cursor_editor_btn_undo"
+                    android:enabled="false" />
+
+                <com.kdt.mcgui.MineButton
+                    android:id="@+id/btn_editor_cancel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="2dp"
+                    android:text="@string/cursor_editor_btn_cancel" />
+
+                <com.kdt.mcgui.MineButton
+                    android:id="@+id/btn_editor_save"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="2dp"
+                    android:text="@string/cursor_editor_btn_save" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</com.kdt.DefocusableScrollView>

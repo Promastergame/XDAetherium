@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.kdt.DefocusableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/fragment_padding_medium"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/modloader_select_title"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/padding_large" />
+
+        <View
+            style="@style/ThickDivider"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/padding_large" />
+
+        <com.kdt.mcgui.MineButton
+            android:id="@+id/btn_loader_fabric"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/padding_large"
+            android:text="Fabric Mod Loader"
+            android:layout_marginTop="@dimen/padding_large" />
+
+        <com.kdt.mcgui.MineButton
+            android:id="@+id/btn_loader_forge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/padding_large"
+            android:text="Forge Mod Loader"
+            android:layout_marginTop="@dimen/padding_large" />
+
+        <com.kdt.mcgui.MineButton
+            android:id="@+id/btn_loader_quilt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/padding_large"
+            android:text="Quilt Mod Loader"
+            android:layout_marginTop="@dimen/padding_large" />
+
+        <com.kdt.mcgui.MineButton
+            android:id="@+id/btn_loader_neoforge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/padding_large"
+            android:text="NeoForge Mod Loader"
+            android:layout_marginTop="@dimen/padding_large" />
+
+        <com.kdt.mcgui.MineButton
+            android:id="@+id/btn_loader_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/padding_large"
+            android:text="@string/modloader_select_back"
+            android:layout_marginTop="@dimen/padding_extra_extra_large"
+            android:layout_marginBottom="@dimen/padding_large" />
+    </LinearLayout>
+</com.kdt.DefocusableScrollView>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app"
+    android:paddingHorizontal="@dimen/fragment_padding_medium">
+
+    <View
+        android:id="@+id/login_menu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_280sdp"
+        android:background="@drawable/background_card"
+        android:translationZ="-1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/elyby_login_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_elyby_username_hint"
+        app:layout_constraintBottom_toTopOf="@+id/elyby_login_edit"
+        app:layout_constraintStart_toStartOf="@+id/elyby_login_edit" />
+
+    <com.kdt.mcgui.MineEditText
+        android:id="@+id/elyby_login_edit"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_37sdp"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_38sdp"
+        android:imeOptions="flagNoExtractUi"
+        android:inputType="textEmailAddress"
+        android:textSize="@dimen/_16ssp"
+        app:layout_constraintEnd_toEndOf="@+id/login_menu"
+        app:layout_constraintStart_toStartOf="@+id/login_menu"
+        app:layout_constraintTop_toTopOf="@+id/login_menu" />
+
+    <TextView
+        android:id="@+id/elyby_password_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_elyby_password_hint"
+        app:layout_constraintBottom_toTopOf="@+id/elyby_password_edit"
+        app:layout_constraintStart_toStartOf="@+id/elyby_password_edit" />
+
+    <com.kdt.mcgui.MineEditText
+        android:id="@+id/elyby_password_edit"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_37sdp"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_23sdp"
+        android:imeOptions="flagNoExtractUi"
+        android:inputType="textPassword"
+        android:textSize="@dimen/_16ssp"
+        app:layout_constraintEnd_toEndOf="@+id/login_menu"
+        app:layout_constraintStart_toStartOf="@+id/login_menu"
+        app:layout_constraintTop_toBottomOf="@+id/elyby_login_edit" />
+
+    <TextView
+        android:id="@+id/elyby_totp_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_elyby_totp_hint"
+        app:layout_constraintBottom_toTopOf="@+id/elyby_totp_edit"
+        app:layout_constraintStart_toStartOf="@+id/elyby_totp_edit" />
+
+    <com.kdt.mcgui.MineEditText
+        android:id="@+id/elyby_totp_edit"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_37sdp"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_23sdp"
+        android:imeOptions="flagNoExtractUi"
+        android:inputType="number"
+        android:textSize="@dimen/_16ssp"
+        app:layout_constraintEnd_toEndOf="@+id/login_menu"
+        app:layout_constraintStart_toStartOf="@+id/login_menu"
+        app:layout_constraintTop_toBottomOf="@+id/elyby_password_edit" />
+
+    <com.kdt.mcgui.MineButton
+        android:id="@+id/elyby_login_button"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_42sdp"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/padding_heavy"
+        android:text="@string/login_online_login_label"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/login_menu"
+        app:layout_constraintStart_toStartOf="@+id/login_menu"
+        app:layout_constraintTop_toBottomOf="@+id/elyby_totp_edit" />
+
+    <com.kdt.mcgui.MineButton
+        android:id="@+id/elyby_register_button"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_32sdp"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:text="@string/login_elyby_register"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/login_menu"
+        app:layout_constraintStart_toStartOf="@+id/login_menu"
+        app:layout_constraintTop_toBottomOf="@+id/elyby_login_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

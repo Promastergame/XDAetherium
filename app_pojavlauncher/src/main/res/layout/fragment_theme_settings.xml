@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.kdt.DefocusableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/fragment_padding_medium"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/theme_title"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/theme_title"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="@dimen/padding_large" />
+
+        <TextView
+            android:id="@+id/theme_subtitle"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/theme_subtitle"
+            android:textColor="#AAAAAA"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginBottom="@dimen/padding_large" />
+
+        <View
+            style="@style/ThickDivider"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/padding_large" />
+
+        <!-- Wallpaper Card Preview -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_card"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_large"
+            android:layout_marginBottom="@dimen/padding_large"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/theme_wallpaper_title"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/padding_medium" />
+
+            <ImageView
+                android:id="@+id/wallpaper_preview"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:scaleType="centerCrop"
+                android:background="#1AFFFFFF"
+                android:layout_marginBottom="@dimen/padding_medium" />
+
+            <com.kdt.mcgui.MineButton
+                android:id="@+id/btn_choose_wallpaper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/theme_choose_wallpaper"
+                android:layout_marginBottom="@dimen/padding_small" />
+
+            <com.kdt.mcgui.MineButton
+                android:id="@+id/btn_clear_wallpaper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/theme_clear_wallpaper" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</com.kdt.DefocusableScrollView>

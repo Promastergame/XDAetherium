@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.kdt.DefocusableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/fragment_padding_medium"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/btw_title"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Better Than Wolves CE"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/padding_large" />
+
+        <TextView
+            android:id="@+id/btw_subtitle"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btw_install_subtitle"
+            android:textColor="#AAAAAA"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginBottom="@dimen/padding_large" />
+
+        <View
+            style="@style/ThickDivider"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/padding_large" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btw_install_desc"
+            android:textColor="#CCCCCC"
+            android:textSize="14sp"
+            android:layout_marginBottom="@dimen/padding_large" />
+
+        <!-- Map Selection Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btw_install_maps_title"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/padding_small" />
+
+        <CheckBox
+            android:id="@+id/checkbox_map_flatcore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btw_install_map_flatcore"
+            android:textColor="#CCCCCC"
+            android:layout_marginBottom="8dp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_map_adventure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btw_install_map_adventure"
+            android:textColor="#CCCCCC"
+            android:layout_marginBottom="@dimen/padding_large" />
+
+        <!-- Installation Status and Progress -->
+        <TextView
+            android:id="@+id/btw_status_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btw_install_status_ready"
+            android:textColor="#AAAAAA"
+            android:textSize="14sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/btw_progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_large"
+            android:visibility="gone" />
+
+        <!-- Install Button -->
+        <com.kdt.mcgui.MineButton
+            android:id="@+id/btw_install_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btw_install_btn"
+            android:layout_marginBottom="@dimen/padding_extra_extra_large" />
+
+    </LinearLayout>
+</com.kdt.DefocusableScrollView>
