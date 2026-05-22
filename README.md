@@ -25,22 +25,41 @@
   - Ely.by skins in-game through `authlib-injector`;
   - Ely.by skin head in the main menu.
 - Forge/Fabric/OptiFine and vanilla Minecraft support.
-- **Premium Mod Loader Selection Installer**:
-  - Completely redesigned from scratch: replaced basic legacy checkbox layouts with a gorgeous Minecraft-style card-based installer flow featuring tailored textures and elegant typography.
-  - Intelligently filters and matches compatible versions for each selected loader type.
-  - Fully supports Fabric, Quilt, NeoForge, Forge, and OptiFine downloads.
-  - **Removed obsolete BTA (Better Than Adventure) loader** due to low community utilization and outdated legacy codebase integration.
-  - **Added Better Than Wolves (BTW) loader framework** (Work In Progress — core UI installer structure is ready, download and compatibility logic coming in the next updates!).
-- **Custom Cursor Store & Pixel Editor**:
+- **Aesthetic Preferences & Studio Navigation**:
+  - Fully redesigned preference categories with custom titles and summaries that make accessing advanced styling and cursor customization natural and intuitive.
+
+  <p align="center">
+    <img src="docs/настройки_англ.jpg" width="600" alt="Launcher Settings Screen">
+  </p>
+
+- **Redesigned Mod Loader Installer**:
+  - Modern card-based interface replacing basic legacy checkboxes.
+  - Version filtering tailored to the selected loader type.
+  - Native support for Fabric, Quilt, NeoForge, Forge, and OptiFine downloads.
+  - Removed the obsolete BTA (Better Than Adventure) loader.
+  - Added the core framework for BTW (Better Than Wolves): UI is ready, downloading and compatibility logic is currently in development.
+
+  <p align="center">
+    <img src="docs/профили_англ.jpg" width="260" alt="Loader Profile Options">
+    <img src="docs/загрузчики_англ.jpg" width="260" alt="Mod Loader Selection">
+    <img src="docs/бтв_англ.jpg" width="260" alt="Better Than Wolves Installer">
+  </p>
+
+- **Custom Cursors & Built-in Pixel Editor**:
   - **Fully Animated Cursor (`.ani`) Engine**: Native decoding of Windows animated cursor files using a custom binary RIFF ACON parser.
   - **Real-Time Animation Pipeline**: Optimized view callback hooks that allow smooth, 60fps cursor animation in settings card previews, the touchpad test environment, and the in-game virtual mouse.
   - **Custom Cursor Upload**: Upload and apply any custom `.png`, `.cur`, or `.ani` file directly.
-  - **Built-in Professional Pixel-Art Editor**:
+  - **Built-in Pixel Editor**:
     - **Backdrop**: Classic Photoshop-style checkerboard pattern canvas for transparent backgrounds.
     - **Magic Bucket (BFS Flood-Erase)**: Automatic contiguous background color eraser using Breadth-First Search with custom sensitivity threshold controls to erase colors (like converting white background pixels to alpha transparency instead of leaving black artifacts).
     - **Manual Brush Eraser**: Precision manual pixel-erasing tool with a fully adjustable radius slider.
     - **History Stack**: Multi-level Undo queue (up to 10 steps) allowing you to revert changes seamlessly.
     - **Ergonomics**: Smart screen auto-rotation lock that prevents frustrating viewport changes while editing.
+
+  <p align="center">
+    <img src="docs/курсоры_англ.jpg" width="600" alt="Cursor Boutique & Editor">
+  </p>
+
 - Automatic Java runtime selection and installation before launch.
 - Fixes for legacy Java 8 / Java 17+ / Java 21 runtime handling.
 - OptiFine manifest fallback fix.
@@ -52,6 +71,13 @@
   - **Custom Button Images/Textures**: Easily upload and map custom images or custom icons directly onto individual virtual buttons for a fully personalized gaming HUD.
   - **Ergonomic Button Resizing**: Refined and simplified scaling controls to adjust button dimensions, making them significantly more comfortable and accessible for mobile screen touch layouts.
   - **Additional Button Actions**: Built-in actions including Cancel and Exit for robust runtime controls.
+
+  <p align="center">
+    <img src="docs/кастом_фоны_англ.jpg" width="280" alt="Custom Layout Backgrounds">
+    <img src="docs/скин_для_кнопок_для_всех_языков.jpg" width="280" alt="Custom Button Skins">
+    <img src="docs/настройка_размера_новая_для_всех_языков.jpg" width="220" alt="Button Dimension Tuning">
+  </p>
+
 - Download cancellation by long-pressing the download row/progress bar.
 - Removed extra upstream wiki/Discord author links.
 

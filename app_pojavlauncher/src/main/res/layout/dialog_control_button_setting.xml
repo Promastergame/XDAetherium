@@ -423,7 +423,7 @@
         android:drawableEnd="@drawable/spinner_arrow_right"
         android:gravity="center_vertical"
         android:paddingEnd="5dp"
-        android:text="Custom Skin Image"
+        android:text="@string/customctrl_custom_skin"
         app:drawableEndIntegerScaling="true"
         app:drawableEndSize="20dp"
 

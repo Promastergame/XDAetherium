@@ -144,7 +144,8 @@
 -->
 
     <string name="customctrl_toggle">Toggleable</string>
-    <string name="customctrl_size">Size</string>
+    <string name="customctrl_size">Dimensions &amp; Scale</string>
+    <string name="customctrl_custom_skin">Custom Button Skin (PNG)</string>
 
     <string name="customctrl_mapping">Mapping</string>
     <string name="customctrl_orientation">Orientation</string>
@@ -518,36 +519,37 @@
     <string name="global_installing">Installing…</string>
 
     <!-- Theme Customization Strings -->
-    <string name="theme_title">Interface Customization</string>
-    <string name="theme_subtitle">Customize the appearance of the main menu</string>
-    <string name="theme_wallpaper_title">Menu Background Image</string>
-    <string name="theme_choose_wallpaper">Choose Background Photo</string>
-    <string name="theme_clear_wallpaper">Reset to Default Background</string>
+    <string name="theme_title">Aesthetic Workspace</string>
+    <string name="theme_subtitle">Forge a completely personalized visual identity for your launcher</string>
+    <string name="theme_wallpaper_title">Desktop Wallpaper Background</string>
+    <string name="theme_choose_wallpaper">UPLOAD CUSTOM WALLPAPER</string>
+    <string name="theme_clear_wallpaper">RESTORE FACTORY BACKGROUND</string>
 
     <!-- Profile Type Option Strings -->
-    <string name="profile_type_install_modloader">Install mod loader</string>
-    <string name="profile_type_create_btw">Create Better Than Wolves profile</string>
+    <string name="profile_type_install_modloader">Forge, Fabric, Quilt, NeoForge Engines</string>
+    <string name="profile_type_create_btw">Better Than Wolves (Classic Hardcore Survival)</string>
 
     <!-- Cursor Store Strings -->
-    <string name="cursor_store_title">Cursor Store</string>
-    <string name="cursor_store_subtitle">Select and customize the cursor for virtual mouse</string>
-    <string name="cursor_preset_standard">Standard</string>
-    <string name="cursor_preset_neon">Neon Ray</string>
-    <string name="cursor_preset_animated">Animated</string>
-    <string name="cursor_user_custom">User Custom Cursor</string>
-    <string name="cursor_btn_upload">Upload file</string>
-    <string name="cursor_btn_edit">Edit</string>
-    <string name="cursor_size_label">Cursor size</string>
-    <string name="cursor_test_zone_title">Cursor Test Zone</string>
-    <string name="cursor_test_zone_hint">Move your finger here to test</string>
-    <string name="cursor_editor_title">Cursor Editor</string>
-    <string name="cursor_editor_btn_flood">Flood Erase</string>
-    <string name="cursor_editor_btn_manual">Eraser</string>
-    <string name="cursor_editor_btn_autocut">Cut All</string>
-    <string name="cursor_editor_sensitivity">Sensitivity Threshold</string>
-    <string name="cursor_editor_btn_undo">Undo</string>
-    <string name="cursor_editor_btn_cancel">Cancel</string>
-    <string name="cursor_editor_btn_save">Save</string>
+    <string name="cursor_store_title">Pointer Boutique</string>
+    <string name="cursor_store_subtitle">Equip dynamic animated pointers or craft custom mouse designs from scratch</string>
+    <string name="cursor_preset_standard">Aetherium Classic</string>
+    <string name="cursor_preset_neon">Cyber Neon Eclipse</string>
+    <string name="cursor_preset_v3">Retro Sci-Fi Static</string>
+    <string name="cursor_preset_animated">Live Chroma Wave</string>
+    <string name="cursor_user_custom">Artist\'s Custom Workspace</string>
+    <string name="cursor_btn_upload">IMPORT CUSTOM POINTER (.PNG/.CUR/.ANI)</string>
+    <string name="cursor_btn_edit">LAUNCH PIXEL ART EDITOR</string>
+    <string name="cursor_size_label">Pointer Scale Factor</string>
+    <string name="cursor_test_zone_title">Interactive Sandbox</string>
+    <string name="cursor_test_zone_hint">Drag and swipe your finger here to unleash the pointer!</string>
+    <string name="cursor_editor_title">Pixel Art Laboratory</string>
+    <string name="cursor_editor_btn_flood">MAGIC FLOOD ERASER</string>
+    <string name="cursor_editor_btn_manual">PRECISION ERASER</string>
+    <string name="cursor_editor_btn_autocut">SMART AUTO-CUT</string>
+    <string name="cursor_editor_sensitivity">Chroma Tolerance</string>
+    <string name="cursor_editor_btn_undo">Revert last step</string>
+    <string name="cursor_editor_btn_cancel">Discard Changes</string>
+    <string name="cursor_editor_btn_save">Compile &amp; Apply</string>
 
     <!-- Java Toast Strings -->
     <string name="cursor_store_selected_standard">Standard cursor selected!</string>
@@ -562,15 +564,15 @@
     <string name="cursor_store_flood_erased">Erased by flood: %1$d pixels</string>
 
     <!-- Mod Loader Selection Strings -->
-    <string name="modloader_select_title">Select mod loaders</string>
-    <string name="modloader_select_back">Back</string>
-    <string name="modloader_select_sub">Select a mod loader for your profile</string>
+    <string name="modloader_select_title">Select Modding Architecture</string>
+    <string name="modloader_select_back">RETURN TO SELECTION</string>
+    <string name="modloader_select_sub">Choose the mod loader core to build your custom Minecraft profile</string>
 
     <!-- Preferences Settings Strings -->
-    <string name="pref_theme_title">Custom Theme...</string>
-    <string name="pref_theme_summary">Choose custom wallpaper backgrounds and themes for the main menu</string>
-    <string name="pref_cursor_title">Touchpad...</string>
-    <string name="pref_cursor_summary">Browse and download custom mouse pointer styles for the virtual mouse</string>
+    <string name="pref_theme_title">Aesthetics &amp; Backgrounds</string>
+    <string name="pref_theme_summary">Inject style into your launcher: set custom wallpapers and dark/light menu styles</string>
+    <string name="pref_cursor_title">Mouse Pointer Studio</string>
+    <string name="pref_cursor_summary">Unleash premium pointers, import custom cursors, or build your own pixel art</string>
 
     <!-- Theme Editor Strings -->
     <string name="theme_wallpaper_success">Background updated successfully!</string>
@@ -587,13 +589,13 @@
     <string name="cursor_editor_pixels_cut">Cut pixels: %1$d</string>
 
     <!-- Better Than Wolves Installation Strings -->
-    <string name="btw_install_subtitle">Installing the legendary hardcore mod</string>
-    <string name="btw_install_desc">Better Than Wolves (BTW) is a total conversion mod that turns Minecraft into a deep and extremely challenging survival game. The installation will target version 1.6.4 with Legacy Fabric support.</string>
-    <string name="btw_install_maps_title">Optional survival maps:</string>
-    <string name="btw_install_map_flatcore">Flatcore Survival (Challenging survival on a flat map)</string>
-    <string name="btw_install_map_adventure">BTW Custom Adventure (Special adventure map)</string>
+    <string name="btw_install_subtitle">Deploying the Legendary Hardcore Modification</string>
+    <string name="btw_install_desc">Better Than Wolves (BTW) is a total conversion that reshapes Minecraft into a gritty, immersive, and uncompromising simulator of survival and technology. Installs onto version 1.6.4 running on Legacy Fabric.</string>
+    <string name="btw_install_maps_title">Legendary survival challenges &amp; custom maps:</string>
+    <string name="btw_install_map_flatcore">Flatcore Survival Challenge (The ultimate flatworld trial)</string>
+    <string name="btw_install_map_adventure">BTW Custom Adventure (Immersive custom story map)</string>
     <string name="btw_install_status_ready">Ready to install</string>
-    <string name="btw_install_btn">Install profile and maps</string>
+    <string name="btw_install_btn">LAUNCH DEPLOYMENT &amp; CREATE PROFILE</string>
     <string name="btw_install_running">Installation in progress…</string>
     <string name="btw_install_preparing">Preparing for installation…</string>
     <string name="btw_install_success">Installation completed successfully!</string>
