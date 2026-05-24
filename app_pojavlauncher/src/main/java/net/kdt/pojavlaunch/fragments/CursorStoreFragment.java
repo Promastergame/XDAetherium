@@ -410,11 +410,7 @@ public class CursorStoreFragment extends Fragment {
         File cursorFile = new File(context.getFilesDir(), "custom_cursor.png");
         try {
             if ("standard".equals(type)) {
-                if (cursorFile.exists()) {
-                    cursorFile.delete();
-                }
                 LauncherPreferences.DEFAULT_PREF.edit()
-                        .remove("custom_cursor_path")
                         .putString("custom_cursor_style_key", "standard")
                         .apply();
                 Toast.makeText(context, getString(R.string.cursor_store_selected_standard), Toast.LENGTH_SHORT).show();
@@ -443,7 +439,6 @@ public class CursorStoreFragment extends Fragment {
         try {
             if ("ani".equals(key)) {
                 LauncherPreferences.DEFAULT_PREF.edit()
-                        .remove("custom_cursor_path")
                         .putString("custom_cursor_style_key", "ani")
                         .apply();
                 Toast.makeText(context, getString(R.string.cursor_store_success), Toast.LENGTH_SHORT).show();
@@ -484,10 +479,25 @@ public class CursorStoreFragment extends Fragment {
         if (context == null) return;
 
         String path = LauncherPreferences.DEFAULT_PREF.getString("custom_cursor_path", null);
+        File customBmpFile = new File(context.getFilesDir(), "custom_cursor_user.png");
+        File customAniFile = new File(context.getFilesDir(), "custom_cursor_user.ani");
+
         if (path != null && new File(path).exists()) {
             String key = path.endsWith(".ani") ? "custom_ani" : "custom";
             LauncherPreferences.DEFAULT_PREF.edit()
                     .putString("custom_cursor_style_key", key)
+                    .apply();
+            Toast.makeText(context, getString(R.string.cursor_store_success), Toast.LENGTH_SHORT).show();
+        } else if (customAniFile.exists()) {
+            LauncherPreferences.DEFAULT_PREF.edit()
+                    .putString("custom_cursor_path", customAniFile.getAbsolutePath())
+                    .putString("custom_cursor_style_key", "custom_ani")
+                    .apply();
+            Toast.makeText(context, getString(R.string.cursor_store_success), Toast.LENGTH_SHORT).show();
+        } else if (customBmpFile.exists()) {
+            LauncherPreferences.DEFAULT_PREF.edit()
+                    .putString("custom_cursor_path", customBmpFile.getAbsolutePath())
+                    .putString("custom_cursor_style_key", "custom")
                     .apply();
             Toast.makeText(context, getString(R.string.cursor_store_success), Toast.LENGTH_SHORT).show();
         } else {
@@ -853,7 +863,6 @@ public class CursorStoreFragment extends Fragment {
     }
 
     private void highlightActiveCard() {
-        String path = LauncherPreferences.DEFAULT_PREF.getString("custom_cursor_path", null);
         String selectedKey = LauncherPreferences.DEFAULT_PREF.getString("custom_cursor_style_key", "standard");
 
         mCardStandard.setAlpha(0.6f);
@@ -862,7 +871,7 @@ public class CursorStoreFragment extends Fragment {
         mCardAni.setAlpha(0.6f);
         mCardCustom.setAlpha(0.6f);
 
-        if (path == null || "standard".equals(selectedKey)) {
+        if ("standard".equals(selectedKey)) {
             mCardStandard.setAlpha(1.0f);
         } else if ("scifi".equals(selectedKey)) {
             mCardScifi.setAlpha(1.0f);

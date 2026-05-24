@@ -96,7 +96,9 @@ public class Touchpad extends View implements GrabListener, AbstractTouchpad {
             customCursorPath = LauncherPreferences.DEFAULT_PREF.getString("custom_cursor_path", null);
             selectedKey = LauncherPreferences.DEFAULT_PREF.getString("custom_cursor_style_key", "standard");
         }
-        if ("ani".equals(selectedKey)) {
+        if ("standard".equals(selectedKey)) {
+            mMousePointerDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_mouse_pointer, getContext().getTheme());
+        } else if ("ani".equals(selectedKey)) {
             mMousePointerDrawable = new net.kdt.pojavlaunch.utils.AnimatedCursorDrawable(getContext(), "01-normal-select.ani", true);
         } else if ("custom_ani".equals(selectedKey) && customCursorPath != null && new java.io.File(customCursorPath).exists()) {
             mMousePointerDrawable = new net.kdt.pojavlaunch.utils.AnimatedCursorDrawable(getContext(), customCursorPath, false);

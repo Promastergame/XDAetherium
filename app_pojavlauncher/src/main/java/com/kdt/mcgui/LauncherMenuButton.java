@@ -2,19 +2,15 @@ package com.kdt.mcgui;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
-
 
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import fr.spse.extended_view.ExtendedButton;
 
@@ -32,6 +28,7 @@ public class LauncherMenuButton extends ExtendedButton {
 
     /** Set style stuff */
     private void setSettings(){
+        applyTextColor();
         Resources resources = getContext().getResources();
 
         int padding = resources.getDimensionPixelSize(R.dimen._22sdp);
@@ -46,5 +43,10 @@ public class LauncherMenuButton extends ExtendedButton {
         sizes[0] = resources.getDimensionPixelSize(R.dimen._30sdp);
         getExtendedViewData().setSizeCompounds(sizes);
         postProcessDrawables();
+    }
+
+    public void applyTextColor() {
+        if (LauncherPreferences.DEFAULT_PREF == null) return;
+        setTextColor(LauncherPreferences.PREF_BUTTON_TEXT_COLOR);
     }
 }

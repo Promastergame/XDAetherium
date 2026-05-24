@@ -119,7 +119,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 34
         versionCode 10000000
-        versionName "2.0.1"
+        versionName "2.1.0"
         multiDexEnabled true //important
         resValue 'string', 'curseforge_api_key', getCFApiKey()
         ndk {

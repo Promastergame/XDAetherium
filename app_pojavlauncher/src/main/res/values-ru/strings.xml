@@ -498,7 +498,13 @@
     <string name="theme_wallpaper_success">Фон успешно установлен!</string>
     <string name="theme_wallpaper_error_prefix">Ошибка загрузки фона: </string>
     <string name="theme_wallpaper_reset">Фон сброшен по умолчанию</string>
-
+    <string name="theme_button_color_title">Цвет кнопок</string>
+    <string name="theme_choose_button_color">Выбрать цвет кнопок</string>
+    <string name="theme_background_color_title">Цвет фона</string>
+    <string name="theme_choose_background_color">Выбрать цвет фона</string>
+    <string name="theme_text_color_title">Цвет текста</string>
+    <string name="theme_choose_text_color">Выбрать цвет текста</string>
+    <string name="theme_reset_defaults">Сбросить на стандартные</string>
     <!-- Cursor Store Extra Strings -->
     <string name="cursor_store_file_loaded">Файл загружен в редактор!</string>
     <string name="cursor_store_load_error_prefix">Ошибка загрузки файла: </string>

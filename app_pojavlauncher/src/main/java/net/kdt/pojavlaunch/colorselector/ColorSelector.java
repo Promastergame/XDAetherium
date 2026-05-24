@@ -54,6 +54,7 @@ public class ColorSelector extends SideDialogView implements HueSelectionListene
         mTextView.addTextChangedListener(this);
         mTextColors = mTextView.getTextColors();
         mAlphaView.setVisibility(mAlphaEnabled ? View.VISIBLE : View.GONE);
+        setEndButtonListener(android.R.string.ok, v -> disappear(false));
 
         // Set elevation to show above other side dialogs.
         // Jank, should be done better

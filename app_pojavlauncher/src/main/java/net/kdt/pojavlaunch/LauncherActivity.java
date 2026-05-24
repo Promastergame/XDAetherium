@@ -11,7 +11,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -24,6 +27,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
+import com.kdt.mcgui.LauncherMenuButton;
+import com.kdt.mcgui.MineButton;
 import com.kdt.mcgui.ProgressLayout;
 import com.kdt.mcgui.mcAccountSpinner;
 
@@ -55,12 +60,15 @@ import net.kdt.pojavlaunch.utils.NotificationUtils;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
 
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 
-public class LauncherActivity extends BaseActivity {
+public class LauncherActivity extends BaseActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     public static final String SETTING_FRAGMENT_TAG = "SETTINGS_FRAGMENT";
 
     public final ActivityResultLauncher<Object> modInstallerLauncher =
@@ -102,10 +110,8 @@ public class LauncherActivity extends BaseActivity {
             mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), f instanceof MainMenuFragment
                     ? R.drawable.ic_menu_settings : R.drawable.ic_menu_home));
             if (f.getView() != null) {
-                String bgPath = LauncherPreferences.DEFAULT_PREF.getString("custom_background_path", null);
-                if (bgPath != null && new java.io.File(bgPath).exists()) {
-                    f.getView().setBackgroundColor(android.graphics.Color.TRANSPARENT);
-                }
+                f.getView().setBackgroundColor(LauncherPreferences.PREF_BACKGROUND_COLOR);
+                refreshAllTextColorOnLayout(f.getView());
             }
         }
     };
@@ -212,6 +218,7 @@ public class LauncherActivity extends BaseActivity {
                     .addToBackStack("ROOT")
                     .add(R.id.container_fragment, MainMenuFragment.class, null, "ROOT").commit();
         }
+        fragmentManager.registerFragmentLifecycleCallbacks(mFragmentCallbackListener, true);
 
 
         IconCacheJanitor.runJanitor();
@@ -235,7 +242,7 @@ public class LauncherActivity extends BaseActivity {
                     }
                 }
         );
-        updateBackground();
+        updateBackgroundColor();
         bindViews();
         checkNotificationPermission();
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -265,6 +272,7 @@ public class LauncherActivity extends BaseActivity {
         super.onResume();
         ContextExecutor.setActivity(this);
         mInstallTracker.attach();
+        updateBackgroundColor();
     }
 
     @Override
@@ -272,12 +280,6 @@ public class LauncherActivity extends BaseActivity {
         super.onPause();
         ContextExecutor.clearActivity();
         mInstallTracker.detach();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        getSupportFragmentManager().registerFragmentLifecycleCallbacks(mFragmentCallbackListener, true);
     }
 
     @Override
@@ -401,26 +403,50 @@ public class LauncherActivity extends BaseActivity {
         mProgressLayout = findViewById(R.id.progress_layout);
     }
 
-    public void updateBackground() {
-        String bgPath = null;
-        if (LauncherPreferences.DEFAULT_PREF != null) {
-            bgPath = LauncherPreferences.DEFAULT_PREF.getString("custom_background_path", null);
+    public void updateBackgroundColor() {
+        getWindow().getDecorView().setBackgroundColor(LauncherPreferences.PREF_BACKGROUND_COLOR);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container_fragment);
+        if (fragment != null && fragment.getView() != null) {
+            fragment.getView().setBackgroundColor(LauncherPreferences.PREF_BACKGROUND_COLOR);
+            fragment.getView().post(() -> refreshAllTextColor(getWindow().getDecorView()));
         }
-        if (bgPath != null && new java.io.File(bgPath).exists()) {
-            android.graphics.drawable.Drawable drawable = android.graphics.drawable.Drawable.createFromPath(bgPath);
-            getWindow().setBackgroundDrawable(drawable);
-            
-            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container_fragment);
-            if (fragment != null && fragment.getView() != null) {
-                fragment.getView().setBackgroundColor(android.graphics.Color.TRANSPARENT);
-            }
-        } else {
-            getWindow().setBackgroundDrawable(null);
-            
-            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container_fragment);
-            if (fragment != null && fragment.getView() != null) {
-                fragment.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.background_app));
+    }
+
+    private void refreshAllTextColor(View root) {
+        if (root instanceof TextView && !(root instanceof MineButton) && !(root instanceof LauncherMenuButton)) {
+            ((TextView) root).setTextColor(LauncherPreferences.PREF_BUTTON_TEXT_COLOR);
+        } else if (root instanceof ViewGroup) {
+            ViewGroup g = (ViewGroup) root;
+            for (int i = 0; i < g.getChildCount(); i++) {
+                refreshAllTextColor(g.getChildAt(i));
             }
         }
+    }
+
+    private void refreshAllTextColorOnLayout(View root) {
+        root.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                refreshAllTextColor(root);
+                root.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+    }
+
+    @Override
+    public boolean onPreferenceStartFragment(@NonNull PreferenceFragmentCompat caller, @NonNull Preference pref) {
+        final Bundle args = pref.getExtras();
+        final Fragment fragment = getSupportFragmentManager().getFragmentFactory().instantiate(
+                getClassLoader(),
+                pref.getFragment()
+        );
+        fragment.setArguments(args);
+        
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.container_fragment, fragment)
+                .addToBackStack(pref.getFragment())
+                .commit();
+        return true;
     }
 }

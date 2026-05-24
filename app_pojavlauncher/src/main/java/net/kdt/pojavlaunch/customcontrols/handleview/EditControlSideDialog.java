@@ -69,6 +69,7 @@ public class EditControlSideDialog extends SideDialogView {
     private TextView mStrokePercentTextView, mCornerRadiusPercentTextView, mAlphaPercentTextView;
     private TextView mSelectBackgroundColor, mSelectStrokeColor, mSelectButtonSkin;
     private float mAspectR = 1.0f;
+    private boolean mIsPickingBgColor = true;
 
     public interface SkinPickListener {
         void onSkinPickRequested(ControlInterface button);
@@ -112,8 +113,9 @@ public class EditControlSideDialog extends SideDialogView {
     /**
      * Slide the layout into the visible screen area
      */
-    public void appearColor(boolean fromRight, int color) {
+    public void appearColor(boolean fromRight, int color, int titleResId) {
         mColorSelector.show(fromRight, color == -1 ? Color.WHITE : color);
+        mColorSelector.setTitle(titleResId);
     }
 
     /**
@@ -146,7 +148,9 @@ public class EditControlSideDialog extends SideDialogView {
             boolean isAtRight = mCurrentlyEditedButton.getControlView().getX() + mCurrentlyEditedButton.getControlView().getWidth() / 2f < currentDisplayMetrics.widthPixels / 2f;
             appear(isAtRight);
             if (mColorSelector.isDisplaying()) {
-                Tools.runOnUiThread(() -> appearColor(isAtRight, mCurrentlyEditedButton.getProperties().bgColor));
+                int currentColor = mIsPickingBgColor ? mCurrentlyEditedButton.getProperties().bgColor : mCurrentlyEditedButton.getProperties().strokeColor;
+                int titleResId = mIsPickingBgColor ? R.string.customctrl_background_color : R.string.customctrl_stroke_color;
+                Tools.runOnUiThread(() -> appearColor(isAtRight, currentColor, titleResId));
             }
         }
     }
@@ -507,21 +511,23 @@ public class EditControlSideDialog extends SideDialogView {
         });
 
         mSelectStrokeColor.setOnClickListener(v -> {
+            mIsPickingBgColor = false;
             mColorSelector.setAlphaEnabled(false);
             mColorSelector.setColorSelectionListener(color -> {
                 mCurrentlyEditedButton.getProperties().strokeColor = color;
                 mCurrentlyEditedButton.setBackground();
             });
-            appearColor(isAtRight(), mCurrentlyEditedButton.getProperties().strokeColor);
+            appearColor(isAtRight(), mCurrentlyEditedButton.getProperties().strokeColor, R.string.customctrl_stroke_color);
         });
 
         mSelectBackgroundColor.setOnClickListener(v -> {
+            mIsPickingBgColor = true;
             mColorSelector.setAlphaEnabled(true);
             mColorSelector.setColorSelectionListener(color -> {
                 mCurrentlyEditedButton.getProperties().bgColor = color;
                 mCurrentlyEditedButton.setBackground();
             });
-            appearColor(isAtRight(), mCurrentlyEditedButton.getProperties().bgColor);
+            appearColor(isAtRight(), mCurrentlyEditedButton.getProperties().bgColor, R.string.customctrl_background_color);
         });
     }
 

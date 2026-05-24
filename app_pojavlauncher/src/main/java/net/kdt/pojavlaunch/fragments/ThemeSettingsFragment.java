@@ -1,37 +1,28 @@
 package net.kdt.pojavlaunch.fragments;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.graphics.drawable.DrawableCompat;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import net.kdt.pojavlaunch.LauncherActivity;
 import net.kdt.pojavlaunch.R;
+import net.kdt.pojavlaunch.colorselector.ColorSelector;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 public class ThemeSettingsFragment extends Fragment {
     public static final String TAG = "ThemeSettingsFragment";
 
-    private ImageView mWallpaperPreview;
-    private final ActivityResultLauncher<String> mGetContent = registerForActivityResult(
-            new ActivityResultContracts.GetContent(),
-            this::onImagePicked
-    );
+    private View mBackgroundColorPreview;
 
     public ThemeSettingsFragment() {
         super(R.layout.fragment_theme_settings);
@@ -41,82 +32,112 @@ public class ThemeSettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mWallpaperPreview = view.findViewById(R.id.wallpaper_preview);
-        View btnChoose = view.findViewById(R.id.btn_choose_wallpaper);
-        View btnClear = view.findViewById(R.id.btn_clear_wallpaper);
+        mBackgroundColorPreview = view.findViewById(R.id.background_color_preview);
+        View btnChooseBgColor = view.findViewById(R.id.btn_choose_background_color);
+        View btnChooseTextColor = view.findViewById(R.id.btn_choose_text_color);
+        View btnReset = view.findViewById(R.id.btn_reset_theme);
 
-        btnChoose.setOnClickListener(v -> mGetContent.launch("image/*"));
-        btnClear.setOnClickListener(v -> clearWallpaper());
+        btnChooseBgColor.setOnClickListener(v -> openBackgroundColorPicker());
+        btnChooseTextColor.setOnClickListener(v -> openTextColorPicker());
+        btnReset.setOnClickListener(v -> resetTheme());
 
-        updatePreview();
+        updateBackgroundColorPreview();
     }
 
-    private void onImagePicked(Uri uri) {
-        if (uri == null) return;
-        Context context = getContext();
-        if (context == null) return;
-
-        try {
-            File destFile = new File(context.getFilesDir(), "custom_wallpaper.png");
-            try (InputStream in = context.getContentResolver().openInputStream(uri);
-                 OutputStream out = new FileOutputStream(destFile)) {
-                if (in == null) {
-                    throw new Exception("Failed to open input stream");
-                }
-                byte[] buffer = new byte[4096];
-                int read;
-                while ((read = in.read(buffer)) != -1) {
-                    out.write(buffer, 0, read);
-                }
-            }
-
+    private void openBackgroundColorPicker() {
+        ViewGroup parent = (ViewGroup) requireActivity().getWindow().getDecorView().findViewById(android.R.id.content);
+        int currentColor = LauncherPreferences.PREF_BACKGROUND_COLOR;
+        ColorSelector colorSelector = new ColorSelector(requireContext(), parent, null);
+        colorSelector.setAlphaEnabled(false);
+        colorSelector.setColorSelectionListener(color -> {
             LauncherPreferences.DEFAULT_PREF.edit()
-                    .putString("custom_background_path", destFile.getAbsolutePath())
+                    .putInt("background_color", color)
                     .apply();
-
-            updatePreview();
-
+            LauncherPreferences.PREF_BACKGROUND_COLOR = color;
+            updateBackgroundColorPreview();
             Activity activity = getActivity();
             if (activity instanceof LauncherActivity) {
-                ((LauncherActivity) activity).updateBackground();
+                ((LauncherActivity) activity).updateBackgroundColor();
             }
-
-            Toast.makeText(context, getString(R.string.theme_wallpaper_success), Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Toast.makeText(context, getString(R.string.theme_wallpaper_error_prefix) + e.getMessage(), Toast.LENGTH_LONG).show();
-        }
+        });
+        colorSelector.show(false, currentColor);
     }
 
-    private void clearWallpaper() {
-        Context context = getContext();
-        if (context == null) return;
+    private void openTextColorPicker() {
+        ViewGroup parent = (ViewGroup) requireActivity().getWindow().getDecorView().findViewById(android.R.id.content);
+        int currentColor = LauncherPreferences.PREF_BUTTON_TEXT_COLOR;
+        ColorSelector colorSelector = new ColorSelector(requireContext(), parent, null);
+        colorSelector.setAlphaEnabled(false);
+        colorSelector.setColorSelectionListener(color -> {
+            LauncherPreferences.DEFAULT_PREF.edit()
+                    .putInt("button_text_color", color)
+                    .apply();
+            LauncherPreferences.PREF_BUTTON_TEXT_COLOR = color;
+            refreshAllButtons();
+            getView().post(() -> refreshAllTextColor());
+        });
+        colorSelector.show(false, currentColor);
+    }
 
-        File destFile = new File(context.getFilesDir(), "custom_wallpaper.png");
-        if (destFile.exists()) {
-            destFile.delete();
-        }
-
+    private void resetTheme() {
         LauncherPreferences.DEFAULT_PREF.edit()
-                .remove("custom_background_path")
+                .remove("background_color")
+                .remove("button_text_color")
                 .apply();
-
-        updatePreview();
-
+        LauncherPreferences.PREF_BACKGROUND_COLOR = 0xFF181818;
+        LauncherPreferences.PREF_BUTTON_TEXT_COLOR = 0xFFFFFFFF;
+        updateBackgroundColorPreview();
         Activity activity = getActivity();
         if (activity instanceof LauncherActivity) {
-            ((LauncherActivity) activity).updateBackground();
+            ((LauncherActivity) activity).updateBackgroundColor();
         }
-
-        Toast.makeText(context, getString(R.string.theme_wallpaper_reset), Toast.LENGTH_SHORT).show();
+        refreshAllButtons();
+        getView().post(() -> refreshAllTextColor());
     }
 
-    private void updatePreview() {
-        if (mWallpaperPreview == null) return;
-        String path = LauncherPreferences.DEFAULT_PREF.getString("custom_background_path", null);
-        if (path != null && new File(path).exists()) {
-            mWallpaperPreview.setImageDrawable(Drawable.createFromPath(path));
-        } else {
-            mWallpaperPreview.setImageDrawable(null);
+    private void refreshAllButtons() {
+        Activity activity = getActivity();
+        if (activity == null) return;
+        refreshButtonGroup(activity.getWindow().getDecorView());
+    }
+
+    private void refreshButtonGroup(View v) {
+        if (v instanceof com.kdt.mcgui.MineButton) {
+            ((com.kdt.mcgui.MineButton) v).applyCustomColor();
+        } else if (v instanceof com.kdt.mcgui.LauncherMenuButton) {
+            ((com.kdt.mcgui.LauncherMenuButton) v).applyTextColor();
+        } else if (v instanceof ViewGroup) {
+            ViewGroup g = (ViewGroup) v;
+            for (int i = 0; i < g.getChildCount(); i++) {
+                refreshButtonGroup(g.getChildAt(i));
+            }
+        }
+    }
+
+    private void refreshAllTextColor() {
+        Activity activity = getActivity();
+        if (activity == null) return;
+        refreshTextGroup(activity.getWindow().getDecorView());
+    }
+
+    private void refreshTextGroup(View v) {
+        if (v instanceof TextView && !(v instanceof com.kdt.mcgui.MineButton) && !(v instanceof com.kdt.mcgui.LauncherMenuButton)) {
+            ((TextView) v).setTextColor(LauncherPreferences.PREF_BUTTON_TEXT_COLOR);
+        } else if (v instanceof ViewGroup) {
+            ViewGroup g = (ViewGroup) v;
+            for (int i = 0; i < g.getChildCount(); i++) {
+                refreshTextGroup(g.getChildAt(i));
+            }
+        }
+    }
+
+    private void updateBackgroundColorPreview() {
+        if (mBackgroundColorPreview == null) return;
+        Drawable bg = mBackgroundColorPreview.getBackground();
+        if (bg != null) {
+            bg = DrawableCompat.wrap(bg.mutate());
+            DrawableCompat.setTintList(bg, ColorStateList.valueOf(LauncherPreferences.PREF_BACKGROUND_COLOR));
+            mBackgroundColorPreview.invalidate();
         }
     }
 }

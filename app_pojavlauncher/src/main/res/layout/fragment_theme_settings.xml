@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_marginBottom="@dimen/padding_large" />
 
-        <!-- Wallpaper Card Preview -->
+        <!-- Background Color Card -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,34 +49,61 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/theme_wallpaper_title"
+                android:text="@string/theme_background_color_title"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="@dimen/padding_medium" />
 
-            <ImageView
-                android:id="@+id/wallpaper_preview"
+            <View
+                android:id="@+id/background_color_preview"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:scaleType="centerCrop"
-                android:background="#1AFFFFFF"
+                android:layout_height="48dp"
+                android:background="@drawable/mine_button_unfocused"
                 android:layout_marginBottom="@dimen/padding_medium" />
 
             <com.kdt.mcgui.MineButton
-                android:id="@+id/btn_choose_wallpaper"
+                android:id="@+id/btn_choose_background_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/theme_choose_wallpaper"
-                android:layout_marginBottom="@dimen/padding_small" />
-
-            <com.kdt.mcgui.MineButton
-                android:id="@+id/btn_clear_wallpaper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/theme_clear_wallpaper" />
+                android:text="@string/theme_choose_background_color" />
 
         </LinearLayout>
+
+        <!-- Text Color Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_card"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_large"
+            android:layout_marginBottom="@dimen/padding_large"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/theme_text_color_title"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/padding_medium" />
+
+            <com.kdt.mcgui.MineButton
+                android:id="@+id/btn_choose_text_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/theme_choose_text_color" />
+
+        </LinearLayout>
+
+        <!-- Reset Button -->
+        <com.kdt.mcgui.MineButton
+            android:id="@+id/btn_reset_theme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_large"
+            android:text="@string/theme_reset_defaults" />
 
     </LinearLayout>
 </com.kdt.DefocusableScrollView>

@@ -578,6 +578,14 @@
     <string name="theme_wallpaper_success">Background updated successfully!</string>
     <string name="theme_wallpaper_error_prefix">Failed to load background: </string>
     <string name="theme_wallpaper_reset">Background reset to default</string>
+    <string name="theme_button_color_title">Button Color</string>
+    <string name="theme_choose_button_color">Choose Button Color</string>
+    <string name="theme_background_color_title">Background Color</string>
+    <string name="theme_choose_background_color">Choose Background Color</string>
+    <string name="theme_text_color_title">Text Color</string>
+    <string name="theme_choose_text_color">Choose Text Color</string>
+    <string name="theme_reset_defaults">Reset to defaults</string>
+
 
     <!-- Cursor Store Extra Strings -->
     <string name="cursor_store_file_loaded">File loaded into editor!</string>
