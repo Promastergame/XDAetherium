@@ -205,16 +205,30 @@ public class JavaGUILauncherActivity extends BaseActivity implements View.OnTouc
             finalErrorDialog(getString(R.string.execute_jar_failed_to_read_file));
             return null;
         }
-        String nearestRuntime = MultiRTUtils.getNearestJreName(javaVersion);
-        if(nearestRuntime == null) {
-            finalErrorDialog(getString(R.string.multirt_nocompatiblert, javaVersion));
+
+        // Find the nearest installed JRE that is version 17 or below (AWT GUI only supports <= 17)
+        List<Runtime> runtimes = MultiRTUtils.getInstalledRuntimes();
+        List<Runtime> compatibleRuntimes = new ArrayList<>();
+        for (Runtime r : runtimes) {
+            if (r.javaVersion <= 17) {
+                compatibleRuntimes.add(r);
+            }
+        }
+
+        MathUtils.RankedValue<Runtime> nearestRankedRuntime = MathUtils.findNearestPositive(javaVersion, compatibleRuntimes, (runtime)->runtime.javaVersion);
+        Runtime selectedRuntime = nearestRankedRuntime != null ? nearestRankedRuntime.value : null;
+
+        if (selectedRuntime == null) {
+            finalErrorDialog(getString(R.string.multirt_nocompatiblert, javaVersion) 
+                + "\n\n(Пожалуйста, установите Java 17 или Java 8 в настройках лаунчера для запуска установщиков)");
             return null;
         }
-        Runtime selectedRuntime = MultiRTUtils.forceReread(nearestRuntime);
+
         int selectedJavaVersion = Math.max(javaVersion, selectedRuntime.javaVersion);
         // Don't allow versions higher than Java 17 because our caciocavallo implementation does not allow for it
         if(selectedJavaVersion > 17) {
-            finalErrorDialog(getString(R.string.execute_jar_incompatible_runtime, selectedJavaVersion));
+            finalErrorDialog(getString(R.string.execute_jar_incompatible_runtime, selectedJavaVersion)
+                + "\n\n(Установщик требует Java " + selectedJavaVersion + ", но запуск .jar поддерживает только Java 17 и ниже)");
             return null;
         }
         return selectedRuntime;
