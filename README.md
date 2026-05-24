@@ -62,7 +62,7 @@
 
 - Automatic Java runtime selection and installation before launch.
 - Fixes for legacy Java 8 / Java 17+ / Java 21 runtime handling.
-- OptiFine manifest fallback fix.
+- High-speed parallel-racing fallback with caching and newest-first sorting for OptiFine versions (working instantly without any additional actions required from the user).
 - Smaller APK: only `arm64-v8a` and `armeabi-v7a`, without x86/x86_64.
 - Custom XDAetherium name, icons, and default profile icon.
 - Forced Russian language option.
