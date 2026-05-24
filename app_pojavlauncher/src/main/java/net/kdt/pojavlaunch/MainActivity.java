@@ -52,6 +52,7 @@ import net.kdt.pojavlaunch.customcontrols.ControlJoystickData;
 import net.kdt.pojavlaunch.customcontrols.ControlLayout;
 import net.kdt.pojavlaunch.customcontrols.CustomControls;
 import net.kdt.pojavlaunch.customcontrols.EditorExitable;
+import net.kdt.pojavlaunch.customcontrols.buttons.ControlInterface;
 import net.kdt.pojavlaunch.customcontrols.keyboard.LwjglCharSender;
 import net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput;
 import net.kdt.pojavlaunch.customcontrols.mouse.GyroControl;
@@ -94,6 +95,7 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
     private GyroControl mGyroControl = null;
     private ControlLayout mControlLayout;
     private HotbarView mHotbarView;
+    private ControlInterface mEditedButtonForSkin;
 
     MinecraftProfile minecraftProfile;
 
@@ -181,6 +183,13 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         MCOptionUtils.MCOptionListener optionListener = MCOptionUtils::getMcScale;
         MCOptionUtils.addMCOptionListener(optionListener);
         mControlLayout.setModifiable(false);
+
+        net.kdt.pojavlaunch.customcontrols.handleview.EditControlSideDialog.sSkinPickListener = button -> {
+            mEditedButtonForSkin = button;
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(Intent.createChooser(intent, "Select Button Skin"), 1001);
+        };
 
         // Set the activity for the executor. Must do this here, or else Tools.showErrorRemote() may not
         // execute the correct method
@@ -390,6 +399,38 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
                 mControlLayout.loadLayout(LauncherPreferences.PREF_DEFAULTCTRL_PATH);
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+
+        if (requestCode == 1001 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            if (mEditedButtonForSkin != null) {
+                try {
+                    Uri selectedImageUri = data.getData();
+                    java.io.File customSkinsDir = new java.io.File(getFilesDir(), "custom_skins");
+                    if (!customSkinsDir.exists()) customSkinsDir.mkdirs();
+                    String extension = ".png";
+                    String uriPath = selectedImageUri.getPath();
+                    if (uriPath != null && uriPath.toLowerCase(java.util.Locale.ROOT).endsWith(".gif")) {
+                        extension = ".gif";
+                    }
+                    java.io.File destFile = new java.io.File(customSkinsDir, "skin_" + System.currentTimeMillis() + extension);
+                    
+                    java.io.InputStream is = getContentResolver().openInputStream(selectedImageUri);
+                    java.io.OutputStream os = new java.io.FileOutputStream(destFile);
+                    byte[] buffer = new byte[1024];
+                    int length;
+                    while ((length = is.read(buffer)) > 0) {
+                        os.write(buffer, 0, length);
+                    }
+                    os.flush();
+                    os.close();
+                    is.close();
+
+                    mEditedButtonForSkin.getProperties().buttonImagePath = destFile.getAbsolutePath();
+                    mEditedButtonForSkin.setBackground();
+                } catch (Exception e) {
+                    Tools.showError(this, e);
+                }
             }
         }
     }

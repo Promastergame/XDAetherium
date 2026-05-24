@@ -59,6 +59,7 @@ public class ControlJoystick extends JoystickView implements ControlInterface {
         setAutoReCenterButton(true);
 
         injectBehaviors();
+        super.setBackground(null);
 
         setOnMoveListener(new OnMoveListener() {
             @Override
@@ -77,6 +78,16 @@ public class ControlJoystick extends JoystickView implements ControlInterface {
                 sendInput(mDirectionForwardLock, isLocked);
             }
         });
+    }
+
+    @Override
+    public void setBackground(android.graphics.drawable.Drawable background) {
+        // Do nothing to prevent drawing a square background box behind the circular joystick
+    }
+
+    @Override
+    public void setBackground() {
+        // Do nothing to prevent drawing a square background box behind the circular joystick
     }
 
     @Override
