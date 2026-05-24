@@ -86,7 +86,7 @@
 The current local debug build was tested on an Android 12 device:
 
 - debug package: `org.angelauramc.amethyst.debug`
-- versionName: `LOCAL-20260510`
+- versionName: `2.0.1`
 - debug APK size: about `82 MB`
 - ABI: `arm64-v8a`, `armeabi-v7a`
 - no x86/x86_64 libraries in the APK

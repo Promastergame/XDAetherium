@@ -86,7 +86,7 @@
 Текущая локальная debug-сборка проверялась на устройстве Android 12:
 
 - package debug: `org.angelauramc.amethyst.debug`
-- versionName: `LOCAL-20260510`
+- versionName: `2.0.1`
 - APK debug: около `82 MB`
 - ABI: `arm64-v8a`, `armeabi-v7a`
 - x86/x86_64 в APK отсутствуют
