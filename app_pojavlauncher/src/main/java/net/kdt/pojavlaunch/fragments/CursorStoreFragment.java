@@ -149,6 +149,7 @@ public class CursorStoreFragment extends Fragment {
         mCardAni.setOnClickListener(v -> selectPreset("ani", "01-normal-select.ani"));
 
         // Custom Clicks
+        mCardCustom.setOnClickListener(v -> selectCustomCursor());
         mBtnCustomUpload.setOnClickListener(v -> mPickCustomCursor.launch("*/*"));
         mBtnCustomEditCurrent.setOnClickListener(v -> openEditorForCurrentCustom());
 
@@ -472,6 +473,25 @@ public class CursorStoreFragment extends Fragment {
             }
         } catch (Exception e) {
             Toast.makeText(context, getString(R.string.cursor_store_error) + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        highlightActiveCard();
+        updateTestPointer();
+    }
+
+    private void selectCustomCursor() {
+        Context context = getContext();
+        if (context == null) return;
+
+        String path = LauncherPreferences.DEFAULT_PREF.getString("custom_cursor_path", null);
+        if (path != null && new File(path).exists()) {
+            String key = path.endsWith(".ani") ? "custom_ani" : "custom";
+            LauncherPreferences.DEFAULT_PREF.edit()
+                    .putString("custom_cursor_style_key", key)
+                    .apply();
+            Toast.makeText(context, getString(R.string.cursor_store_success), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, getString(R.string.cursor_store_fail_preset), Toast.LENGTH_SHORT).show();
         }
 
         highlightActiveCard();
