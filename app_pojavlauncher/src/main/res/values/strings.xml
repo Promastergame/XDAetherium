@@ -16,6 +16,8 @@
     <string name="login_elyby_totp_hint">2FA code (optional)</string>
     <string name="login_elyby_register">Create Ely.by account</string>
     <string name="login_elyby_bad_credentials">Enter your Ely.by login and password.</string>
+    <string name="login_error_invalid_username">Invalid username, name should be 3-16 characters, only A-Z, a-z, 0-9 and underscore allowed.</string>
+    <string name="login_microsoft">Microsoft Login</string>
 
     <!-- Hint -->
     <string name="hint_control_mapping">"Touch the top center cogwheel to open the context menu ⚙\nTap a button to customize: edit, resize, remove, or change its keybinds."</string>
