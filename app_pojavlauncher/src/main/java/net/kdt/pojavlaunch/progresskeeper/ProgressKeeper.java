@@ -33,7 +33,8 @@ public class ProgressKeeper {
             for(ProgressListener listener : progressListeners) {
                     if(shouldCallStarted) listener.onProgressStarted();
                     else if(shouldCallEnded) listener.onProgressEnded();
-                    else listener.onProgressUpdated(progress, resid, va);
+                    
+                    if(!shouldCallEnded) listener.onProgressUpdated(progress, resid, va);
             }
     }
 
@@ -100,6 +101,10 @@ public class ProgressKeeper {
 
     public static synchronized int getTaskCount() {
         return sProgressStates.size();
+    }
+
+    public static synchronized java.util.Set<String> getActiveProgressKeys() {
+        return new java.util.HashSet<>(sProgressStates.keySet());
     }
 
     public static boolean hasOngoingTasks() {

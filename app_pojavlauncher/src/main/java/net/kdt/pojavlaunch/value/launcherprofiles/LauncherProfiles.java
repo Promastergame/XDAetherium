@@ -36,9 +36,26 @@ public class LauncherProfiles {
             mainProfileJson.profiles.put(UUID.randomUUID().toString(), MinecraftProfile.getDefaultProfile());
 
         // Normalize profile names from mod installers
-        if(normalizeProfileIds(mainProfileJson)){
+        boolean changed = normalizeProfileIds(mainProfileJson);
+        
+        // Force isolation for all profiles
+        for (MinecraftProfile profile : mainProfileJson.profiles.values()) {
+            if (profile.gameDir == null || profile.gameDir.isEmpty()) {
+                String baseName = profile.name == null ? "" : profile.name;
+                if (baseName.isEmpty() && profile.lastVersionId != null) {
+                    baseName = profile.lastVersionId;
+                }
+                if (baseName.isEmpty()) baseName = "Profile_" + System.currentTimeMillis();
+                
+                String sanitized = baseName.replaceAll("[^a-zA-Z0-9.\\-]", "_");
+                profile.gameDir = getUniqueGameDir("profiles/" + sanitized);
+                changed = true;
+            }
+        }
+
+        if(changed){
             write();
-            load();
+            // Don't call load() recursively here to avoid infinite loops if save failed
         }
     }
 
@@ -65,7 +82,41 @@ public class LauncherProfiles {
      * @param minecraftProfile the profile to insert
      */
     public static void insertMinecraftProfile(MinecraftProfile minecraftProfile) {
+        // If the installer just named it "OptiFine", "Forge" or "Fabric", use the specific version ID instead
+        if (minecraftProfile.name != null && (minecraftProfile.name.equals("OptiFine") || minecraftProfile.name.equals("Forge") || minecraftProfile.name.equals("fabric") || minecraftProfile.name.equals("Fabric"))) {
+            if (minecraftProfile.lastVersionId != null && !minecraftProfile.lastVersionId.isEmpty()) {
+                minecraftProfile.name = minecraftProfile.lastVersionId;
+            }
+        }
+
+        if (minecraftProfile.gameDir == null || minecraftProfile.gameDir.isEmpty()) {
+            String baseName = minecraftProfile.name == null ? "" : minecraftProfile.name;
+            if (baseName.isEmpty() && minecraftProfile.lastVersionId != null) {
+                baseName = minecraftProfile.lastVersionId;
+            }
+            if (baseName.isEmpty()) baseName = "Profile_" + System.currentTimeMillis();
+            
+            String sanitized = baseName.replaceAll("[^a-zA-Z0-9.\\-]", "_");
+            minecraftProfile.gameDir = getUniqueGameDir("profiles/" + sanitized);
+        }
         mainProfileJson.profiles.put(getFreeProfileKey(), minecraftProfile);
+    }
+
+    public static String getUniqueGameDir(String baseDir) {
+        String dir = baseDir;
+        int i = 1;
+        while (true) {
+            boolean conflict = false;
+            for (MinecraftProfile p : mainProfileJson.profiles.values()) {
+                if (dir.equals(p.gameDir)) {
+                    conflict = true;
+                    break;
+                }
+            }
+            if (!conflict) return dir;
+            dir = baseDir + "_" + i;
+            i++;
+        }
     }
 
     public static @NonNull String cloneProfile(@NonNull String profileKey) {

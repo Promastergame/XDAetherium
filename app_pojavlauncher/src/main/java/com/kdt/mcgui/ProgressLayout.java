@@ -64,6 +64,9 @@ public class ProgressLayout extends ConstraintLayout implements View.OnClickList
 
 
     public void observe(String progressKey){
+        for(LayoutProgressListener listener : mMap) {
+            if(listener.progressKey.equals(progressKey)) return;
+        }
         mMap.add(new LayoutProgressListener(progressKey));
     }
 
@@ -120,6 +123,9 @@ public class ProgressLayout extends ConstraintLayout implements View.OnClickList
             if(tc > 0) {
                 mTaskNumberDisplayer.setText(getContext().getString(R.string.progresslayout_tasks_in_progress, tc));
                 setVisibility(VISIBLE);
+                for (String key : ProgressKeeper.getActiveProgressKeys()) {
+                    observe(key);
+                }
             }else
                 setVisibility(GONE);
         });
@@ -134,14 +140,15 @@ public class ProgressLayout extends ConstraintLayout implements View.OnClickList
             this.progressKey = progressKey;
             container = new LinearLayout(getContext());
             container.setOrientation(LinearLayout.HORIZONTAL);
+            textView = new TextProgressBar(getContext());
+            textView.setTextPadding(getContext().getResources().getDimensionPixelOffset(R.dimen._6sdp));
             View.OnLongClickListener cancelListener = v -> {
                 if(!ProgressKeeper.hasCancellationHandler(progressKey)) return false;
                 ProgressKeeper.cancel(progressKey);
+                textView.setText("Cancelling...");
                 return true;
             };
             container.setOnLongClickListener(cancelListener);
-            textView = new TextProgressBar(getContext());
-            textView.setTextPadding(getContext().getResources().getDimensionPixelOffset(R.dimen._6sdp));
             textView.setOnLongClickListener(cancelListener);
             container.addView(textView, new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1));
             params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, getResources().getDimensionPixelOffset(R.dimen._32sdp));
@@ -161,8 +168,8 @@ public class ProgressLayout extends ConstraintLayout implements View.OnClickList
             post(()-> {
                 textView.setProgress(progress);
                 if(resid != -1) textView.setText(getContext().getString(resid, va));
-                else if(va.length > 0 && va[0] != null)textView.setText((String)va[0]);
-                else textView.setText("");
+                else if(va.length > 0 && va[0] != null && !((String)va[0]).isEmpty()) textView.setText((String)va[0]);
+                else textView.setText("Downloading...");
             });
         }
 

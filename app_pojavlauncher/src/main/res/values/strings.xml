@@ -6,6 +6,7 @@
     <!-- Action bar part -->
 
     <!-- Languages list part -->
+    <string name="mc_language_default">Don\'t Change (Default)</string>
 
     <!-- Login strings -->
     <string name="login_online_username_hint">Username</string>
@@ -315,6 +316,14 @@
     <string name="preference_deadzone_scale_description">Increase it if the joystick drifts.</string>
 
 
+    <string name="force_minecraft_language">Force Minecraft Language</string>
+    <string name="search_language">Search language...</string>
+    <string name="export_backup_title">Export Data (Backup)</string>
+    <string name="export_backup_summary">Save worlds, settings, and cursors to a ZIP archive</string>
+    <string name="import_backup_title">Import Data (Backup)</string>
+    <string name="import_backup_summary">Restore data from a ZIP archive</string>
+
+
     <string name="preference_force_big_core_title">Force the renderer to run on the big core</string>
     <string name="preference_force_big_core_desc">Forces the Minecraft render thread to run on the core with the highest maximum frequency.</string>
     <string name="version_select_hint">Select a version</string>
@@ -612,5 +621,10 @@
     <string name="btw_install_profile_created">Better Than Wolves profile created successfully!</string>
     <string name="btw_install_data_not_available">Data not available</string>
     <string name="btw_install_error">Installation failed</string>
+
+    <string name="select_bta_version">Select BTA version</string>
+    <string name="bta_installer_available_versions">Available versions</string>
+    <string name="bta_installer_untested_versions">Untested versions</string>
+    <string name="bta_installer_nightly_versions">Nightly versions</string>
 
 </resources>

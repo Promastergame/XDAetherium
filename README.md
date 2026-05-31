@@ -67,15 +67,39 @@
 - Custom XDAetherium name, icons, and default profile icon.
 - Forced Russian language option.
 - **Advanced Custom Controls & Backgrounds**:
-  - **Custom Layout Backgrounds (Beta)**: Ability to set personalized background images/photos directly behind custom control overlays. Features an intuitive color palette selector (slated for further improvements in upcoming releases!).
+  - **Color Palettes & Text Color**: Temporarily removed custom background image uploads (to be reworked). Replaced with intuitive controls for setting solid background colors and customizing interface text colors.
   - **Custom Button Images/Textures**: Easily upload and map custom images or custom icons directly onto individual virtual buttons for a fully personalized gaming HUD.
   - **Ergonomic Button Resizing**: Refined and simplified scaling controls to adjust button dimensions, making them significantly more comfortable and accessible for mobile screen touch layouts.
   - **Additional Button Actions**: Built-in actions including Cancel and Exit for robust runtime controls.
 
   <p align="center">
+    <img src="docs/кастомизация_интерфейса_английский.jpg" width="600" alt="Interface Customization">
+  </p>
+
+  <p align="center">
     <img src="docs/кастом_фоны_англ.jpg" width="280" alt="Custom Layout Backgrounds">
     <img src="docs/скин_для_кнопок_для_всех_языков.jpg" width="280" alt="Custom Button Skins">
     <img src="docs/настройка_размера_новая_для_всех_языков.jpg" width="220" alt="Button Dimension Tuning">
+  </p>
+
+- **Global Fixes and Profile System**:
+  - **Complete Profile Isolation (Modrinth Style)**: Every profile is now strictly stored in its own isolated directory (`profiles/Profile_Name`). Worlds, mods, and settings will never mix again!
+  - **Smart Auto-Naming**: When downloading multiple modloaders (e.g., OptiFine), the launcher automatically uses exact version names or appends unique indices to folders to prevent conflicts.
+  - **Legacy Version Crash Fixes**: The launcher now automatically resets broken string-based mouse bindings (`key.mouse.middle`) that crashed Minecraft 1.12.2 and older, which expected numerical codes (e.g., `-100`).
+  - **Corrupted Download Protection**: If an archive is partially downloaded due to network issues, the launcher detects the corrupted file, automatically deletes it, and prompts the user to retry the download instead of crashing the game.
+  - **Bugfix Integration**: Ported stability and bug fixes similar to Amethyst version 1.1.5.
+  - **Import/Export Profiles**: Easily share or back up your Minecraft profiles. Export a profile as a portable archive (includes version, modloader, and settings) and import it on any device running XDAetherium.
+
+- **Force Minecraft Language**:
+  - Override the in-game Minecraft language independently of your system locale.
+  - Full list of ~140 supported Minecraft languages with search and filtering.
+  - The launcher automatically writes the selected language to Minecraft's `options.txt` before each launch.
+
+  <p align="center">
+    <img src="docs/показать_настройку_языков_английский.jpg" width="280" alt="Language Setting">
+    <img src="docs/менять_языки_английский.jpg" width="280" alt="Language Selection">
+    <img src="docs/показать_настройку_языков_русский.jpg" width="280" alt="Настройка языка">
+    <img src="docs/менять_языки_русский.jpg" width="280" alt="Выбор языка">
   </p>
 
 - Download cancellation by long-pressing the download row/progress bar.

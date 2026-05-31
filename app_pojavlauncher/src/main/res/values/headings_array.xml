@@ -112,4 +112,21 @@
         <item>2</item>
         <item>1</item>
     </string-array>
+    <string-array name="mc_language_names">
+        <item>Не менять (По умолчанию)</item>
+        <item>Русский</item>
+        <item>English (US)</item>
+        <item>LOLCAT</item>
+        <item>Українська</item>
+        <item>Беларуская</item>
+    </string-array>
+    
+    <string-array name="mc_language_values">
+        <item>default</item>
+        <item>ru_ru</item>
+        <item>en_us</item>
+        <item>lol_us</item>
+        <item>uk_ua</item>
+        <item>be_by</item>
+    </string-array>
 </resources>

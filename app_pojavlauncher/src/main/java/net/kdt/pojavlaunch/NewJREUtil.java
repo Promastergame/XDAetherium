@@ -261,7 +261,7 @@ public class NewJREUtil {
         File outputFile = new File(Tools.DIR_CACHE, String.format("jre%s-android-%s.tar.xz", javaVersion, arch));
         try {
             DownloaderProgressWrapper monitor = new DownloaderProgressWrapper(R.string.newdl_downloading_jre_runtime,
-                    ProgressLayout.UNPACK_RUNTIME);
+                    ProgressLayout.UNPACK_RUNTIME + "_" + javaVersion);
             monitor.extraString = Integer.toString(javaVersion);
             DownloadUtils.downloadFileMonitored(
                     getJreSource(javaVersion, arch),
@@ -277,7 +277,7 @@ public class NewJREUtil {
             if(outputFile.exists()) outputFile.delete();
             throw new RuntimeException("Failed to download Java "+javaVersion+" for "+arch, e);
         } finally {
-            ProgressLayout.clearProgress(ProgressLayout.UNPACK_RUNTIME);
+            ProgressLayout.clearProgress(ProgressLayout.UNPACK_RUNTIME + "_" + javaVersion);
         }
     }
 

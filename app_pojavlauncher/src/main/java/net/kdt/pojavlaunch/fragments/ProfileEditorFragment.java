@@ -258,7 +258,18 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
 
         if(mTempProfile.controlFile.isEmpty()) mTempProfile.controlFile = null;
         if(mTempProfile.javaArgs.isEmpty()) mTempProfile.javaArgs = null;
-        if(mTempProfile.gameDir.isEmpty()) mTempProfile.gameDir = null;
+        
+        if(mTempProfile.gameDir.isEmpty()) {
+            String sanitized = mTempProfile.name.replaceAll("[^a-zA-Z0-9.\\-]", "_");
+            if (sanitized.isEmpty()) {
+                if (mTempProfile.lastVersionId != null && !mTempProfile.lastVersionId.isEmpty()) {
+                    sanitized = mTempProfile.lastVersionId.replaceAll("[^a-zA-Z0-9.\\-]", "_");
+                } else {
+                    sanitized = "Profile_" + System.currentTimeMillis();
+                }
+            }
+            mTempProfile.gameDir = net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles.getUniqueGameDir("profiles/" + sanitized);
+        }
 
         Runtime selectedRuntime = (Runtime) mDefaultRuntime.getSelectedItem();
         mTempProfile.javaDir = (selectedRuntime.name.equals("<Default>") || selectedRuntime.versionString == null)

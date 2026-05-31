@@ -103,10 +103,10 @@ public class LauncherActivity extends BaseActivity implements PreferenceFragment
     private ModloaderInstallTracker mInstallTracker;
     private NotificationManager mNotificationManager;
 
-    /* Allows to switch from one button "type" to another */
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentCallbackListener = new FragmentManager.FragmentLifecycleCallbacks() {
         @Override
         public void onFragmentResumed(@NonNull FragmentManager fm, @NonNull Fragment f) {
+            if (f instanceof androidx.fragment.app.DialogFragment) return;
             mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), f instanceof MainMenuFragment
                     ? R.drawable.ic_menu_settings : R.drawable.ic_menu_home));
             if (f.getView() != null) {

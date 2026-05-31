@@ -37,6 +37,7 @@ public class LauncherPreferences {
 	public static String PREF_CUSTOM_JAVA_ARGS;
     public static boolean PREF_FORCE_ENGLISH = false;
     public static boolean PREF_FORCE_RUSSIAN = false;
+    public static String PREF_FORCE_MINECRAFT_LANGUAGE = "default";
     public static final String PREF_VERSION_REPOS = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json";
     public static boolean PREF_CHECK_LIBRARY_SHA = true;
     public static boolean PREF_DISABLE_GESTURES = false;
@@ -93,6 +94,7 @@ public class LauncherPreferences {
 		PREF_DEFAULTCTRL_PATH = DEFAULT_PREF.getString("defaultCtrl", Tools.CTRLDEF_FILE);
         PREF_FORCE_ENGLISH = DEFAULT_PREF.getBoolean("force_english", false);
         PREF_FORCE_RUSSIAN = DEFAULT_PREF.getBoolean("force_russian", false);
+        PREF_FORCE_MINECRAFT_LANGUAGE = DEFAULT_PREF.getString("force_minecraft_language", "default");
         PREF_CHECK_LIBRARY_SHA = DEFAULT_PREF.getBoolean("checkLibraries",true);
         PREF_DISABLE_GESTURES = DEFAULT_PREF.getBoolean("disableGestures",false);
         PREF_GAMEPAD_SDL_PASSTHRU = DEFAULT_PREF.getBoolean("gamepadPassthru",false);

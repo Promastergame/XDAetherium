@@ -118,12 +118,12 @@ android {
         applicationId "org.angelauramc.amethyst"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 10000000
-        versionName "2.1.0"
+        versionCode 30000000
+        versionName "3.0.0"
         multiDexEnabled true //important
         resValue 'string', 'curseforge_api_key', getCFApiKey()
         ndk {
-            abiFilters "arm64-v8a", "armeabi-v7a"
+            abiFilters "arm64-v8a", "armeabi-v7a", "x86", "x86_64"
         }
         externalNativeBuild {
             ndkBuild {
@@ -205,6 +205,15 @@ android {
         pickFirst '**/libbytehook.so'
     }
 
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'arm64-v8a', 'armeabi-v7a', 'x86', 'x86_64'
+            universalApk true
+        }
+    }
+
     buildFeatures {
         prefab true
         buildConfig true
@@ -216,24 +225,13 @@ android {
 afterEvaluate {
     // Explicit dependencies for which the apk relies on
     def jarDeps = [":forge_installer:jar", ":arc_dns_injector:jar", ":methods_injector_agent:jar", ":jre_lwjgl3glfw:jar"]
-    tasks.mergeDebugAssets.dependsOn(jarDeps)
-    tasks.mergeReleaseAssets.dependsOn(jarDeps)
+    tasks.matching { it.name.startsWith("merge") && it.name.endsWith("Assets") }.configureEach {
+        dependsOn(jarDeps)
+    }
     tasks.matching { it.name.contains("Lint") || it.name.contains("lint") }.configureEach {
         dependsOn(jarDeps)
     }
-    tasks.matching { it.name.startsWith("merge") && it.name.endsWith("Assets") }.configureEach {
-        doLast {
-            def variantName = name.substring("merge".length(), name.length() - "Assets".length())
-            def variantDir = variantName.substring(0, 1).toLowerCase() + variantName.substring(1)
-            def componentsDir = file("$buildDir/intermediates/assets/$variantDir/$name/components")
-            delete(
-                    "$componentsDir/lwjgl-3.3.3-natives/x86",
-                    "$componentsDir/lwjgl-3.3.3-natives/x86_64",
-                    "$componentsDir/lwjgl-3.4.1-natives/x86",
-                    "$componentsDir/lwjgl-3.4.1-natives/x86_64"
-            )
-        }
-    }
+
 }
 
 dependencies {

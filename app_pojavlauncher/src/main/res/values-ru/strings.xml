@@ -4,6 +4,7 @@
     <string name="app_name">XDAetherium</string>
     <!-- Action bar part -->
     <!-- Languages list part -->
+    <string name="mc_language_default">Не менять (По умолчанию)</string>
     <!-- Login strings -->
     <string name="login_online_username_hint">Имя пользователя</string>
     <string name="login_online_login_label">Войти</string>
@@ -217,6 +218,12 @@
     <string name="profiles_profile_version">Версия</string>
     <string name="global_delete">Удалить</string>
     <string name="profile_delete_title">Удалить профиль?</string>
+    <string name="force_minecraft_language">Принудительный язык Minecraft</string>
+    <string name="search_language">Поиск языка...</string>
+    <string name="export_backup_title">Экспорт данных (Бэкап)</string>
+    <string name="export_backup_summary">Сохранить миры, настройки и курсоры в ZIP архив</string>
+    <string name="import_backup_title">Импорт данных (Бэкап)</string>
+    <string name="import_backup_summary">Восстановить данные из ZIP архива</string>
     <string name="profile_delete_message">Будет удалён только профиль лаунчера. Файлы игры, миры и сохранения останутся на месте.</string>
     <string name="pedit_java_runtime">Среда выполнения Java</string>
     <string name="pedit_renderer">Визуализатор</string>

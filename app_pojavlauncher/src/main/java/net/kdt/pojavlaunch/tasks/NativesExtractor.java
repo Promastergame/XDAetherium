@@ -64,15 +64,21 @@ public class NativesExtractor {
             // avoid it being closed by processEntry()
             NonCloseableInputStream entryCopyStream = new NonCloseableInputStream(zipInputStream);
             ZipEntry entry;
-            while((entry = zipInputStream.getNextEntry()) != null) {
-                String entryName = entry.getName();
-                if(!entryName.startsWith(mLibraryLocation) || entry.isDirectory()) continue;
-                // Entry name is actually the full path, so we need to strip the path before extraction
-                entryName = FileUtils.getFileName(entryName);
-                // getFileName may make the file name null, avoid that case.
-                if(entryName == null || LIBRARY_BLACKLIST.contains(entryName)) continue;
-
-                processEntry(entryCopyStream, entry, new File(mDestinationDir, entryName), buffer);
+            try {
+                while((entry = zipInputStream.getNextEntry()) != null) {
+                    String entryName = entry.getName();
+                    if(!entryName.startsWith(mLibraryLocation) || entry.isDirectory()) continue;
+                    // Entry name is actually the full path, so we need to strip the path before extraction
+                    entryName = FileUtils.getFileName(entryName);
+                    // getFileName may make the file name null, avoid that case.
+                    if(entryName == null || LIBRARY_BLACKLIST.contains(entryName)) continue;
+    
+                    processEntry(entryCopyStream, entry, new File(mDestinationDir, entryName), buffer);
+                }
+            } catch (java.io.EOFException | java.util.zip.ZipException e) {
+                // The file is corrupted. Delete it so it gets redownloaded next time.
+                source.delete();
+                throw new IOException("Corrupted archive detected and deleted: " + source.getName() + ". Please retry the download.", e);
             }
         }
     }

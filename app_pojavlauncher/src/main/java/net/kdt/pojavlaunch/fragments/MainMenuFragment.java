@@ -42,6 +42,7 @@ public class MainMenuFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Button mCustomControlButton = view.findViewById(R.id.custom_control_button);
+        Button mLanguageButton = view.findViewById(R.id.language_button);
         Button mInstallJarButton = view.findViewById(R.id.install_jar_button);
         Button mShareLogsButton = view.findViewById(R.id.share_logs_button);
         Button mOpenDirectoryButton = view.findViewById(R.id.open_files_button);
@@ -51,6 +52,11 @@ public class MainMenuFragment extends Fragment {
         mVersionSpinner = view.findViewById(R.id.mc_version_spinner);
 
         mCustomControlButton.setOnClickListener(v -> startActivity(new Intent(requireContext(), CustomControlsActivity.class)));
+        if (mLanguageButton != null) {
+            mLanguageButton.setOnClickListener(v -> {
+                new net.kdt.pojavlaunch.utils.LanguageSelectorDialog().show(getChildFragmentManager(), "LanguageSelector");
+            });
+        }
         mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation(false));
         mInstallJarButton.setOnLongClickListener(v -> {
             runInstallerWithConfirmation(true);

@@ -54,7 +54,6 @@ public abstract class ModVersionListFragment<T> extends Fragment implements Runn
         view.findViewById(R.id.forge_installer_retry_button).setOnClickListener(this);
         ModloaderListenerProxy taskProxy = getTaskProxy();
         if(taskProxy != null) {
-            mExpandableListView.setEnabled(false);
             taskProxy.attachListener(this);
         }
         new Thread(this).start();
@@ -108,7 +107,6 @@ public abstract class ModVersionListFragment<T> extends Fragment implements Runn
         Runnable downloadTask = createDownloadTask(forgeVersion, taskProxy);
         setTaskProxyValue(taskProxy);
         taskProxy.attachListener(this);
-        mExpandableListView.setEnabled(false);
         new Thread(downloadTask).start();
         return true;
     }
@@ -119,7 +117,6 @@ public abstract class ModVersionListFragment<T> extends Fragment implements Runn
             Context context = requireContext();
             getTaskProxy().detachListener();
             deleteTaskProxy();
-            mExpandableListView.setEnabled(true);
             // Read the comment in FabricInstallFragment.onDownloadFinished() to see how this works
             getParentFragmentManager().popBackStackImmediate();
             onDownloadFinished(context, downloadedFile);
@@ -132,7 +129,6 @@ public abstract class ModVersionListFragment<T> extends Fragment implements Runn
             Context context = requireContext();
             getTaskProxy().detachListener();
             deleteTaskProxy();
-            mExpandableListView.setEnabled(true);
             Tools.dialog(context,
                     context.getString(R.string.global_error),
                     context.getString(getNoDataMsg()));
@@ -145,7 +141,6 @@ public abstract class ModVersionListFragment<T> extends Fragment implements Runn
             Context context = requireContext();
             getTaskProxy().detachListener();
             deleteTaskProxy();
-            mExpandableListView.setEnabled(true);
             if(!(e instanceof CancellationException)) Tools.showError(context, e);
         });
     }

@@ -476,15 +476,28 @@ public final class Tools {
             throw new RuntimeException(activity.getString(R.string.exception_failed_to_unpack_jre17));
         }
         
-        if (LauncherPreferences.PREF_FORCE_RUSSIAN) {
-            try {
-                MCOptionUtils.load(gamedir.getAbsolutePath());
-                boolean legacy = NewJREUtil.isLegacyVersion(versionInfo.id, versionInfo.inheritsFrom);
+        try {
+            boolean legacy = NewJREUtil.isLegacyVersion(versionInfo.id, versionInfo.inheritsFrom);
+            MCOptionUtils.load(gamedir.getAbsolutePath());
+            
+            if (legacy) {
+                MCOptionUtils.cleanOldMinecraftKeybinds();
+            }
+
+            if (!"default".equals(LauncherPreferences.PREF_FORCE_MINECRAFT_LANGUAGE)) {
+                String lang = LauncherPreferences.PREF_FORCE_MINECRAFT_LANGUAGE;
+                // Legacy versions expect mixed case or specific formats sometimes, but mostly standard locale format
+                if (legacy && lang.equals("ru_ru")) lang = "ru_RU";
+                if (legacy && lang.equals("en_us")) lang = "en_US";
+                MCOptionUtils.set("lang", lang);
+                MCOptionUtils.save();
+            } else if (LauncherPreferences.PREF_FORCE_RUSSIAN) {
+                // Fallback for the old toggle if it's still enabled and the new setting is default
                 MCOptionUtils.set("lang", legacy ? "ru_RU" : "ru_ru");
                 MCOptionUtils.save();
-            } catch (Exception e) {
-                Log.e("Tools", "Failed to force Russian language", e);
             }
+        } catch (Exception e) {
+            Log.e("Tools", "Failed to patch options.txt", e);
         }
 
         LauncherProfiles.load();

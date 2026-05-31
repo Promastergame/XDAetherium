@@ -180,4 +180,29 @@ public class MCOptionUtils {
         }
     }
 
+    /**
+     * Minecraft 1.12.2 and older uses integer keycodes (like -100).
+     * Newer versions use string names (like "key.mouse.left").
+     * If an older version tries to parse a string name, it throws a NumberFormatException and crashes.
+     * This cleans up incompatible keybinds by removing them, reverting them to default.
+     */
+    public static void cleanOldMinecraftKeybinds() {
+        boolean changed = false;
+        List<String> keysToRemove = new ArrayList<>();
+        for (String key : sParameterMap.keySet()) {
+            if (key.startsWith("key_")) {
+                String value = sParameterMap.get(key);
+                if (value != null && !value.matches("^-?\\d+$")) {
+                    keysToRemove.add(key);
+                    changed = true;
+                }
+            }
+        }
+        for (String key : keysToRemove) {
+            sParameterMap.remove(key);
+        }
+        if (changed) {
+            save();
+        }
+    }
 }
