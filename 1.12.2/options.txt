@@ -1,3 +1,0 @@
-overrideWidth:1870
-fullscreen:off
-overrideHeight:1170

@@ -123,7 +123,7 @@ android {
         multiDexEnabled true //important
         resValue 'string', 'curseforge_api_key', getCFApiKey()
         ndk {
-            abiFilters "arm64-v8a", "armeabi-v7a"
+            abiFilters "arm64-v8a", "armeabi-v7a", "x86", "x86_64"
         }
         externalNativeBuild {
             ndkBuild {
@@ -173,6 +173,15 @@ android {
             initWith release
             signingConfig signingConfigs.googlePlayBuild
             matchingFallbacks = [ 'release' ]
+        }
+    }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include "arm64-v8a", "armeabi-v7a", "x86", "x86_64"
+            universalApk true
         }
     }
 
@@ -228,12 +237,7 @@ afterEvaluate {
             def variantName = name.substring("merge".length(), name.length() - "Assets".length())
             def variantDir = variantName.substring(0, 1).toLowerCase() + variantName.substring(1)
             def componentsDir = file("$buildDir/intermediates/assets/$variantDir/$name/components")
-            delete(
-                    "$componentsDir/lwjgl-3.3.3-natives/x86",
-                    "$componentsDir/lwjgl-3.3.3-natives/x86_64",
-                    "$componentsDir/lwjgl-3.4.1-natives/x86",
-                    "$componentsDir/lwjgl-3.4.1-natives/x86_64"
-            )
+            // x86/x86_64 LWJGL natives are kept since we now build for those ABIs
         }
     }
 }
