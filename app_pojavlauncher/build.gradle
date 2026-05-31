@@ -123,7 +123,7 @@ android {
         multiDexEnabled true //important
         resValue 'string', 'curseforge_api_key', getCFApiKey()
         ndk {
-            abiFilters "arm64-v8a", "armeabi-v7a", "x86", "x86_64"
+            abiFilters "arm64-v8a", "armeabi-v7a"
         }
         externalNativeBuild {
             ndkBuild {
@@ -205,15 +205,6 @@ android {
         pickFirst '**/libbytehook.so'
     }
 
-    splits {
-        abi {
-            enable true
-            reset()
-            include 'arm64-v8a', 'armeabi-v7a', 'x86', 'x86_64'
-            universalApk true
-        }
-    }
-
     buildFeatures {
         prefab true
         buildConfig true
@@ -232,6 +223,19 @@ afterEvaluate {
         dependsOn(jarDeps)
     }
 
+    tasks.matching { it.name.startsWith("merge") && it.name.endsWith("Assets") }.configureEach {
+        doLast {
+            def variantName = name.substring("merge".length(), name.length() - "Assets".length())
+            def variantDir = variantName.substring(0, 1).toLowerCase() + variantName.substring(1)
+            def componentsDir = file("$buildDir/intermediates/assets/$variantDir/$name/components")
+            delete(
+                    "$componentsDir/lwjgl-3.3.3-natives/x86",
+                    "$componentsDir/lwjgl-3.3.3-natives/x86_64",
+                    "$componentsDir/lwjgl-3.4.1-natives/x86",
+                    "$componentsDir/lwjgl-3.4.1-natives/x86_64"
+            )
+        }
+    }
 }
 
 dependencies {
