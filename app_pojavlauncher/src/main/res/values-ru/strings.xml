@@ -338,6 +338,8 @@
     <string name="preference_download_source_description">Загружать файлы с зеркала вместо загрузки с официального репозитория.</string>
     <string name="preference_verify_manifest_title">Проверка метаданных версии</string>
     <string name="preference_verify_manifest_description">Проверять манифест версии игры совместно с библиотеками.</string>
+    <string name="preference_disable_profile_isolation_title">Отключить изоляцию профилей</string>
+    <string name="preference_disable_profile_isolation_summary">Использовать общую папку .minecraft для всех профилей вместо отдельных директорий</string>
     <string name="notif_download_finished">Игра подготовлена</string>
     <string name="notif_download_finished_desc">Нажмите для запуска</string>
     <string name="preference_category_gestures">Жесты</string>

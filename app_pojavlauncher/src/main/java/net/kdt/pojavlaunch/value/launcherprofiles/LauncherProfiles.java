@@ -9,6 +9,8 @@ import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,27 +38,24 @@ public class LauncherProfiles {
             mainProfileJson.profiles.put(UUID.randomUUID().toString(), MinecraftProfile.getDefaultProfile());
 
         // Normalize profile names from mod installers
-        boolean changed = normalizeProfileIds(mainProfileJson);
-        
-        // Force isolation for all profiles
-        for (MinecraftProfile profile : mainProfileJson.profiles.values()) {
-            if (profile.gameDir == null || profile.gameDir.isEmpty()) {
-                String baseName = profile.name == null ? "" : profile.name;
-                if (baseName.isEmpty() && profile.lastVersionId != null) {
-                    baseName = profile.lastVersionId;
-                }
-                if (baseName.isEmpty()) baseName = "Profile_" + System.currentTimeMillis();
-                
-                String sanitized = baseName.replaceAll("[^a-zA-Z0-9.\\-]", "_");
-                profile.gameDir = getUniqueGameDir("profiles/" + sanitized);
-                changed = true;
-            }
+        if(normalizeProfileIds(mainProfileJson)){
+            write();
         }
 
-        if(changed){
-            write();
-            // Don't call load() recursively here to avoid infinite loops if save failed
+        // When profile isolation is disabled, revert all auto-generated gameDirs
+        if(LauncherPreferences.PREF_DISABLE_PROFILE_ISOLATION) {
+            boolean reverted = false;
+            for (MinecraftProfile profile : mainProfileJson.profiles.values()) {
+                if (profile.gameDir != null && profile.gameDir.startsWith("profiles/")) {
+                    profile.gameDir = null;
+                    reverted = true;
+                }
+            }
+            if(reverted) write();
         }
+
+        // Ensure profiles with existing gameDir have their data migrated from .minecraft
+        ensureProfilesHaveData();
     }
 
     /** Apply the current configuration into a file */
@@ -89,7 +88,7 @@ public class LauncherProfiles {
             }
         }
 
-        if (minecraftProfile.gameDir == null || minecraftProfile.gameDir.isEmpty()) {
+        if (!LauncherPreferences.PREF_DISABLE_PROFILE_ISOLATION && (minecraftProfile.gameDir == null || minecraftProfile.gameDir.isEmpty())) {
             String baseName = minecraftProfile.name == null ? "" : minecraftProfile.name;
             if (baseName.isEmpty() && minecraftProfile.lastVersionId != null) {
                 baseName = minecraftProfile.lastVersionId;
@@ -98,8 +97,89 @@ public class LauncherProfiles {
             
             String sanitized = baseName.replaceAll("[^a-zA-Z0-9.\\-]", "_");
             minecraftProfile.gameDir = getUniqueGameDir("profiles/" + sanitized);
+            
+            // Copy existing data from .minecraft to the new profile directory (like Modrinth does with copy_dotminecraft)
+            copyExistingDataToProfile(minecraftProfile);
         }
         mainProfileJson.profiles.put(getFreeProfileKey(), minecraftProfile);
+    }
+
+    /**
+     * Copy existing .minecraft data (options.txt, saves, mods, etc.)
+     * to the new profile directory so settings and worlds are preserved.
+     * Like Modrinth's copy_dotminecraft() approach.
+     */
+    /**
+     * For profiles that already have an isolated gameDir but are missing essential
+     * files (like options.txt), copy them from the shared .minecraft directory.
+     * This handles profiles that were migrated by the buggy 3.0.0 version.
+     */
+    private static void ensureProfilesHaveData() {
+        File sourceDir = new File(Tools.DIR_GAME_NEW);
+        if (!sourceDir.isDirectory()) return;
+
+        for (MinecraftProfile profile : mainProfileJson.profiles.values()) {
+            if (profile.gameDir == null || !profile.gameDir.startsWith("profiles/")) continue;
+            File destDir = new File(Tools.DIR_GAME_HOME, profile.gameDir);
+
+            // Always copy options.txt from .minecraft so old versions get proper rendering settings
+            copyFileIfSourceExists(sourceDir, destDir, "options.txt");
+
+            // For everything else, only copy once (tracked by .initialized)
+            if (!new File(destDir, ".initialized").exists()) {
+                copyExistingDataToProfile(profile);
+            }
+        }
+    }
+
+    private static void copyFileIfSourceExists(File sourceDir, File destDir, String name) {
+        File src = new File(sourceDir, name);
+        if (!src.exists()) return;
+        File dst = new File(destDir, name);
+        try {
+            if (src.isDirectory()) {
+                copyRecursive(src, dst);
+            } else {
+                Files.copy(src.toPath(), dst.toPath(), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
+            }
+        } catch (Exception e) {
+            Log.w("LauncherProfiles", "Failed to copy " + name, e);
+        }
+    }
+
+    private static void copyExistingDataToProfile(MinecraftProfile profile) {
+        if (profile.gameDir == null) return;
+        File sourceDir = new File(Tools.DIR_GAME_NEW);
+        if (!sourceDir.isDirectory()) return;
+
+        File destDir = new File(Tools.DIR_GAME_HOME, profile.gameDir);
+        if (!destDir.exists()) destDir.mkdirs();
+
+        String[] itemsToCopy = {"saves", "mods", "resourcepacks", "servers.dat", "config"};
+        for (String name : itemsToCopy) {
+            copyFileIfSourceExists(sourceDir, destDir, name);
+        }
+
+        // Write sentinel file so we don't re-copy bulk data on every launch
+        try {
+            new File(destDir, ".initialized").createNewFile();
+        } catch (IOException e) {
+            Log.w("LauncherProfiles", "Failed to write sentinel file", e);
+        }
+    }
+
+    private static void copyRecursive(File src, File dst) throws IOException {
+        if (src.isDirectory()) {
+            if (!dst.mkdirs()) return;
+            String[] children = src.list();
+            if (children != null) {
+                for (String child : children) {
+                    copyRecursive(new File(src, child), new File(dst, child));
+                }
+            }
+        } else {
+            Files.copy(src.toPath(), dst.toPath(), StandardCopyOption.COPY_ATTRIBUTES);
+        }
     }
 
     public static String getUniqueGameDir(String baseDir) {

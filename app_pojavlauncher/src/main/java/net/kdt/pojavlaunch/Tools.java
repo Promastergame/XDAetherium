@@ -407,14 +407,15 @@ public final class Tools {
 
     private static String[] sodiumMods = {"sodium", "embeddium", "rubidium", "xenon"};
 
-    private static boolean affectedByLTWRenderDistanceIssue() {
+    private static boolean affectedByLTWRenderDistanceIssue(File profileGameDir) {
         if(!"opengles3_ltw".equals(Tools.LOCAL_RENDERER)) return false;
         if(!affectedByRenderDistanceIssue()) return false;
         if(hasMods(sodiumMods)) return false;
 
         int renderDistance;
         try {
-            MCOptionUtils.load();
+            // Load options from the correct profile directory, not the stale cached path
+            MCOptionUtils.load(profileGameDir.getAbsolutePath());
             String renderDistanceString = MCOptionUtils.get("renderDistance");
             renderDistance = Integer.parseInt(renderDistanceString);
         }catch (Exception e) {
@@ -453,9 +454,10 @@ public final class Tools {
         }
         LauncherProfiles.load();
         File gamedir = Tools.getGameDirPath(minecraftProfile);
+
         startControllableMitigation(activity, gamedir);
         startOldLegacy4JMitigation(activity, gamedir);
-        if(affectedByLTWRenderDistanceIssue()) {
+        if(affectedByLTWRenderDistanceIssue(gamedir)) {
             LifecycleAwareAlertDialog.DialogCreator dialogCreator = ((alertDialog, dialogBuilder) ->
                     dialogBuilder.setMessage(activity.getString(R.string.ltw_render_distance_warning_msg))
                             .setPositiveButton(android.R.string.ok, (d, w)->{}));
@@ -482,6 +484,22 @@ public final class Tools {
             
             if (legacy) {
                 MCOptionUtils.cleanOldMinecraftKeybinds();
+                // If this is a fresh isolated profile with no options.txt settings,
+                // apply mobile-friendly defaults. Minecraft's PC defaults (renderDistance:8,
+                // graphics:fancy) are too heavy for mobile devices.
+                if (MCOptionUtils.get("renderDistance") == null) {
+                    MCOptionUtils.set("renderDistance", "2");
+                    MCOptionUtils.set("graphics", "fast");
+                    MCOptionUtils.set("fancyGraphics", "false");
+                    MCOptionUtils.set("ao", "0");
+                    MCOptionUtils.set("particles", "1");        // minimal
+                    MCOptionUtils.set("mipmapLevels", "0");     // huge perf gain on mobile
+                    MCOptionUtils.set("enableVsync", "false");  // vsync causes stutter on old versions
+                    MCOptionUtils.set("bobView", "false");
+                    MCOptionUtils.set("maxFps", "260");
+                    MCOptionUtils.save(); // Save to disk so Minecraft reads these on startup!
+                    Log.i("Tools", "Applied mobile-friendly defaults for fresh legacy profile");
+                }
             }
 
             if (!"default".equals(LauncherPreferences.PREF_FORCE_MINECRAFT_LANGUAGE)) {

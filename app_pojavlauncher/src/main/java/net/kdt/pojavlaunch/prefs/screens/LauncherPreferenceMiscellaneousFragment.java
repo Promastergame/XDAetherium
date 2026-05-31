@@ -9,9 +9,11 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
+import androidx.preference.SwitchPreference;
 
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.utils.BackupUtils;
 import net.kdt.pojavlaunch.utils.GLInfoUtils;
 
@@ -61,6 +63,14 @@ public class LauncherPreferenceMiscellaneousFragment extends LauncherPreferenceF
         if (importPref != null) {
             importPref.setOnPreferenceClickListener(preference -> {
                 mImportLauncher.launch(new String[]{"application/zip", "application/x-zip-compressed", "application/octet-stream"});
+                return true;
+            });
+        }
+
+        SwitchPreference isolationPref = findPreference("disableProfileIsolation");
+        if (isolationPref != null) {
+            isolationPref.setOnPreferenceChangeListener((preference, newValue) -> {
+                LauncherPreferences.PREF_DISABLE_PROFILE_ISOLATION = (Boolean) newValue;
                 return true;
             });
         }

@@ -1,0 +1,65 @@
+# Minecraft launcher log started at 2026-05-31 19:24:03
+# Profile: Vanilla 1.12.2 
+
+
+[19:24:07] [Client thread] [bib/INFO]: Setting user: Promaster_Game
+[19:24:09] [Client thread] [bib/INFO]: LWJGL Version: 2.9.4
+[19:24:10] [Client thread] [cev/INFO]: Reloading ResourceManager: Default
+[19:24:15] [Sound Library Loader] [chm/INFO]: Starting up SoundSystem...
+[19:24:15] [Thread-3] [chm/INFO]: Initializing LWJGL OpenAL
+[19:24:15] [Thread-3] [chm/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[19:24:15] [Thread-3] [chm/INFO]: OpenAL initialized.
+[19:24:15] [Sound Library Loader] [chm/INFO]: Sound engine started
+[19:24:23] [Client thread] [cdp/INFO]: Created: 1024x512 textures-atlas
+[19:24:26] [Client thread] [com.mojang.text2speech.NarratorWindows/INFO]: Narrator library for x64 successfully loaded
+[19:24:31] [Server thread] [chd/INFO]: Starting integrated minecraft server version 1.12.2
+[19:24:31] [Server thread] [chd/INFO]: Generating keypair
+[19:24:31] [Server thread] [j/INFO]: Loaded 488 advancements
+[19:24:32] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Preparing start region for level 0
+[19:24:33] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Preparing spawn area: 8%
+[19:24:34] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Preparing spawn area: 14%
+[19:24:35] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Preparing spawn area: 24%
+[19:24:36] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Preparing spawn area: 35%
+[19:24:37] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Preparing spawn area: 50%
+[19:24:38] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Preparing spawn area: 67%
+[19:24:39] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Preparing spawn area: 85%
+[19:24:40] [Server thread] [chd/INFO]: Changing view distance to 12, from 10
+[19:24:41] [Server thread] [pl/INFO]: Promaster_Game[local:E:8103379f] logged in with entity id 1716 at (-332.5, 67.0, -70.5)
+[19:24:41] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Promaster_Game joined the game
+[19:24:43] [Server thread] [chd/INFO]: Saving and pausing game...
+[19:24:43] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Saving chunks for level 'New World'/overworld
+[19:24:43] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Saving chunks for level 'New World'/the_nether
+[19:24:43] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Saving chunks for level 'New World'/the_end
+[19:24:44] [Server thread] [net.minecraft.server.MinecraftServer/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 3129ms behind, skipping 62 tick(s)
+[19:24:53] [Server thread] [chd/INFO]: Saving and pausing game...
+[19:24:53] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Saving chunks for level 'New World'/overworld
+[19:24:53] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Saving chunks for level 'New World'/the_nether
+[19:24:53] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Saving chunks for level 'New World'/the_end
+[19:24:54] [File IO Thread] [no/INFO]: [STDERR]: java.io.IOException: Stream Closed
+[19:24:54] [File IO Thread] [no/INFO]: [STDERR]: 	at java.io.RandomAccessFile.seek0(Native Method)
+[19:24:54] [File IO Thread] [no/INFO]: [STDERR]: 	at java.io.RandomAccessFile.seek(RandomAccessFile.java:557)
+[19:24:54] [File IO Thread] [no/INFO]: [STDERR]: 	at ayj.a(SourceFile:323)
+[19:24:54] [File IO Thread] [no/INFO]: [STDERR]: 	at ayj.a(SourceFile:263)
+[19:24:54] [File IO Thread] [no/INFO]: [STDERR]: 	at ayj$a.close(SourceFile:244)
+[19:24:54] [File IO Thread] [no/INFO]: [STDERR]: 	at java.util.zip.DeflaterOutputStream.close(DeflaterOutputStream.java:273)
+[19:24:54] [File IO Thread] [no/INFO]: [STDERR]: 	at java.io.FilterOutputStream.close(FilterOutputStream.java:159)
+[19:24:54] [File IO Thread] [no/INFO]: [STDERR]: 	at java.io.FilterOutputStream.close(FilterOutputStream.java:159)
+[19:24:54] [File IO Thread] [no/INFO]: [STDERR]: 	at aye.b(SourceFile:160)
+[19:24:54] [File IO Thread] [no/INFO]: [STDERR]: 	at aye.a(SourceFile:145)
+[19:24:54] [File IO Thread] [no/INFO]: [STDERR]: 	at bgx.c(SourceFile:37)
+[19:24:54] [File IO Thread] [no/INFO]: [STDERR]: 	at bgx.run(SourceFile:30)
+[19:24:54] [File IO Thread] [no/INFO]: [STDERR]: 	at java.lang.Thread.run(Thread.java:750)
+[19:24:54] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Stopping server
+[19:24:54] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Saving players
+[19:24:54] [Server thread] [pa/INFO]: Promaster_Game lost connection: Disconnected
+[19:24:54] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Promaster_Game left the game
+[19:24:54] [Server thread] [pa/INFO]: Stopping singleplayer server as player logged out
+[19:24:54] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Saving worlds
+[19:24:54] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Saving chunks for level 'New World'/overworld
+[19:24:54] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Saving chunks for level 'New World'/the_nether
+[19:24:54] [Server thread] [net.minecraft.server.MinecraftServer/INFO]: Saving chunks for level 'New World'/the_end
+[19:24:54] [Client thread] [bib/INFO]: Stopping!
+[19:24:54] [Client thread] [chm/INFO]: SoundSystem shutting down...
+[19:24:54] [Client thread] [chm/WARN]: Author: Paul Lamb, www.paulscode.com
+
+# Process exited with status: exit code: 0
