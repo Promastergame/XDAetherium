@@ -77,7 +77,6 @@
   </p>
 
   <p align="center">
-    <img src="docs/кастом_фоны_англ.jpg" width="280" alt="Custom Layout Backgrounds">
     <img src="docs/скин_для_кнопок_для_всех_языков.jpg" width="280" alt="Custom Button Skins">
     <img src="docs/настройка_размера_новая_для_всех_языков.jpg" width="220" alt="Button Dimension Tuning">
   </p>
