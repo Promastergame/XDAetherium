@@ -97,8 +97,6 @@
   <p align="center">
     <img src="docs/показать_настройку_языков_русский.jpg" width="280" alt="Настройка языка">
     <img src="docs/менять_языки_русский.jpg" width="280" alt="Выбор языка">
-    <img src="docs/показать_настройку_языков_английский.jpg" width="280" alt="Language Setting">
-    <img src="docs/менять_языки_английский.jpg" width="280" alt="Language Selection">
   </p>
 
 - Отмена загрузок долгим нажатием на строку/прогресс загрузки.

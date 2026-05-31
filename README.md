@@ -97,8 +97,6 @@
   <p align="center">
     <img src="docs/показать_настройку_языков_английский.jpg" width="280" alt="Language Setting">
     <img src="docs/менять_языки_английский.jpg" width="280" alt="Language Selection">
-    <img src="docs/показать_настройку_языков_русский.jpg" width="280" alt="Настройка языка">
-    <img src="docs/менять_языки_русский.jpg" width="280" alt="Выбор языка">
   </p>
 
 - Download cancellation by long-pressing the download row/progress bar.
