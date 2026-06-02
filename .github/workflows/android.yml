@@ -28,6 +28,13 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
+      - name: Get LTW
+        run: |
+          sudo apt update && sudo apt install -y wget
+          mkdir -p app_pojavlauncher/libs
+          cd app_pojavlauncher/libs
+          wget https://github.com/CopperLauncher/LTW/releases/latest/download/ltw-release.aar
+     
       - name: Get JRE 8
         uses: dawidd6/action-download-artifact@v9
         with:
@@ -78,16 +85,6 @@ jobs:
           ./scripts/languagelist_updater.sh
           mkdir out
 
-      - name: Build Release .apk
-        run: |
-          # Build the launcher
-          gradle :app_pojavlauncher:assembleRelease
-          mv app_pojavlauncher/build/outputs/apk/release/app_pojavlauncher-release.apk out/app-release.apk
-
-      - name: Gen md5sums
-        run: |
-          md5sum out/app-release.apk > out/app-release.md5
-
       - name: Build Debug .apk
         run: |
           # Build the launcher
@@ -103,9 +100,3 @@ jobs:
         with:
           name: app-debug (recommended)
           path: out/app-debug.*
-
-      - name: Upload release APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release
-          path: out/app-release.*
