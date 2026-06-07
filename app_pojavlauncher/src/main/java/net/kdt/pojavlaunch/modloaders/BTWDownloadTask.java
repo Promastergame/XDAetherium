@@ -70,7 +70,7 @@ public class BTWDownloadTask implements Runnable {
         btwProfile.name = "Better Than Wolves";
         btwProfile.gameDir = "./custom_instances/better_than_wolves";
         btwProfile.javaDir = Tools.LAUNCHERPROFILES_RTPREFIX + "External-8";
-        btwProfile.icon = "fabric";
+        btwProfile.icon = "BTW";
         LauncherProfiles.insertMinecraftProfile(btwProfile);
         LauncherProfiles.write();
     }

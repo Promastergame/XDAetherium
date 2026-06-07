@@ -6,6 +6,7 @@ import static net.kdt.pojavlaunch.Tools.hasNoOnlineProfileDialog;
 import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -265,6 +266,43 @@ public class LauncherActivity extends BaseActivity implements PreferenceFragment
         mProgressLayout.observe(ProgressLayout.INSTALL_MODPACK);
         mProgressLayout.observe(ProgressLayout.AUTHENTICATE_MICROSOFT);
         mProgressLayout.observe(ProgressLayout.DOWNLOAD_VERSION_LIST);
+        handleIntent(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (intent == null) return;
+        if ("net.kdt.pojavlaunch.ACTION_LAUNCH_PROFILE".equals(intent.getAction())) {
+            String profileKey = intent.getStringExtra("profile_key");
+            if (profileKey != null && !profileKey.isEmpty()) {
+                LauncherProfiles.load();
+                if (LauncherProfiles.mainProfileJson != null && LauncherProfiles.mainProfileJson.profiles.containsKey(profileKey)) {
+                    LauncherPreferences.DEFAULT_PREF.edit()
+                            .putString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, profileKey)
+                            .apply();
+
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    Fragment fragment = fragmentManager.findFragmentByTag("ROOT");
+                    if (fragment instanceof MainMenuFragment) {
+                        ((MainMenuFragment) fragment).reloadSpinner();
+                    }
+
+                    if (mFragmentView != null) {
+                        mFragmentView.postDelayed(() -> {
+                            if (mAccountSpinner != null && mAccountSpinner.getSelectedAccount() != null) {
+                                ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true);
+                            }
+                        }, 500);
+                    }
+                }
+            }
+        }
     }
 
     @Override

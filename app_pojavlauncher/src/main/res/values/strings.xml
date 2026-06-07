@@ -629,4 +629,11 @@
     <string name="bta_installer_untested_versions">Untested versions</string>
     <string name="bta_installer_nightly_versions">Nightly versions</string>
 
+    <string name="create_shortcut">Create shortcut</string>
+    <string name="shortcut_created_toast">Shortcut created</string>
+    <string name="shortcut_not_supported_toast">Shortcuts not supported on this launcher</string>
+    <string name="profile_icon_choose_preset">Choose preset icon</string>
+    <string name="profile_icon_choose_custom">Choose custom image</string>
+    <string name="profile_icon_reset">Reset to default icon</string>
+    <string name="profile_icon_dialog_title">Select profile icon source</string>
 </resources>

@@ -25,9 +25,8 @@
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_marginTop="@dimen/padding_heavy"
-                android:paddingHorizontal="@dimen/profile_editor_image_padding"
-
-                android:paddingVertical="@dimen/profile_editor_image_padding"
+                android:paddingHorizontal="0dp"
+                android:paddingVertical="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -266,6 +265,15 @@
                 app:layout_constraintEnd_toEndOf="@id/vprof_editor_profile_renderer"
                 app:layout_constraintTop_toTopOf="@id/vprof_editor_profile_renderer" />
 
+            <com.kdt.mcgui.MineButton
+                android:id="@+id/vprof_editor_shortcut_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/create_shortcut"
+                app:layout_constraintTop_toBottomOf="@+id/vprof_editor_profile_renderer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

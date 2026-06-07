@@ -76,8 +76,25 @@ public class ProfileIconCache {
 
     private static Drawable getStaticIcon(Resources resources, @NonNull String icon) {
         int staticIconResource = getStaticIconResource(icon);
-        if(staticIconResource == -1) return null;
-        return ResourcesCompat.getDrawable(resources, staticIconResource, null);
+        if(staticIconResource != -1) {
+            return ResourcesCompat.getDrawable(resources, staticIconResource, null);
+        }
+        try {
+            try (java.io.InputStream is = resources.getAssets().open("icons/" + icon + ".webp")) {
+                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                if (bitmap != null) {
+                    return new BitmapDrawable(resources, bitmap);
+                }
+            } catch (java.io.IOException ignored) {}
+
+            try (java.io.InputStream is = resources.getAssets().open("icons/" + icon + ".png")) {
+                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                if (bitmap != null) {
+                    return new BitmapDrawable(resources, bitmap);
+                }
+            } catch (java.io.IOException ignored) {}
+        } catch (Exception ignored) {}
+        return null;
     }
 
     private static int getStaticIconResource(String icon) {

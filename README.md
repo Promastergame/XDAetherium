@@ -37,7 +37,7 @@
   - Version filtering tailored to the selected loader type.
   - Native support for Fabric, Quilt, NeoForge, Forge, and OptiFine downloads.
   - Removed the obsolete BTA (Better Than Adventure) loader.
-  - Added the core framework for BTW (Better Than Wolves): UI is ready, downloading and compatibility logic is currently in development.
+  - **BTW (Better Than Wolves)** installer is fully complete: installs Minecraft 1.5.2 with Cursed Fabric automatically, with optional survival maps (Flatcore / Adventure).
 
   <p align="center">
     <img src="docs/профили_англ.jpg" width="260" alt="Loader Profile Options">
@@ -102,12 +102,35 @@
 - Download cancellation by long-pressing the download row/progress bar.
 - Removed extra upstream wiki/Discord author links.
 
+- **Home Screen Profile Shortcuts**:
+  - Create a home screen shortcut directly from the **Profile Editor** by pressing **"Create shortcut"**.
+  - The shortcut automatically selects the profile and launches the game — no need to navigate manually.
+  - The shortcut uses the profile's current icon (including custom presets from `assets/icons/`).
+
+  <p align="center">
+    <img src="docs/создать_ярлык_англ.jpg" width="260" alt="Create Shortcut Button">
+    <img src="docs/как_выглядит_ярлык_на_рабочем_столе_для_всех_языков.jpg" width="260" alt="Shortcut on Home Screen">
+  </p>
+
+- **Custom Profile Icons**:
+  - Tap the profile icon in the **Profile Editor** to open an icon source menu.
+  - **Choose preset icon**: picks from built-in presets (`default`, `fabric`, `quilt`) **and** any custom images placed in `assets/icons/` (`.webp` / `.png`).
+  - **Choose custom image**: crop any image from your device as the profile icon.
+  - **Reset to default**: restores the default profile icon.
+  - BTW profiles automatically use the dedicated `BTW.webp` icon.
+  - Changes are only saved when you press **Save**.
+
+  <p align="center">
+    <img src="docs/кликнул_на_изменить_иконку_англ.jpg" width="260" alt="Icon Source Selection">
+    <img src="docs/свое_изображение_для_иконки_англ.jpg" width="260" alt="Custom Image Cropper">
+  </p>
+
 ## Build status
 
 The current local debug build was tested on an Android 12 device:
 
 - debug package: `org.angelauramc.amethyst.debug`
-- versionName: `2.0.1`
+- versionName: `3.1.1`
 - debug APK size: about `82 MB`
 - ABI: `arm64-v8a`, `armeabi-v7a`
 - no x86/x86_64 libraries in the APK

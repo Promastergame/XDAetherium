@@ -538,4 +538,11 @@
     <string name="btw_install_data_not_available">Данные недоступны</string>
     <string name="btw_install_error">Ошибка при установке</string>
 
+    <string name="create_shortcut">Создать ярлык</string>
+    <string name="shortcut_created_toast">Ярлык создан</string>
+    <string name="shortcut_not_supported_toast">Ярлыки не поддерживаются вашим лаунчером</string>
+    <string name="profile_icon_choose_preset">Выбрать из заготовок</string>
+    <string name="profile_icon_choose_custom">Выбрать свое изображение</string>
+    <string name="profile_icon_reset">Сбросить до стандартного</string>
+    <string name="profile_icon_dialog_title">Выберите источник иконки</string>
 </resources>

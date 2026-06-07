@@ -100,6 +100,12 @@ public class MainMenuFragment extends Fragment {
         mVersionSpinner.reloadProfiles();
     }
 
+    public void reloadSpinner() {
+        if (mVersionSpinner != null) {
+            mVersionSpinner.reloadProfiles();
+        }
+    }
+
     private void runInstallerWithConfirmation(boolean isCustomArgs) {
         if (ProgressKeeper.getTaskCount() == 0)
             Tools.installMod(requireActivity(), isCustomArgs);

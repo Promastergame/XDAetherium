@@ -25,6 +25,7 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:textOn="@string/cropper_lock_horizontal"
             android:textOff="@string/cropper_lock_horizontal"/>
         <ToggleButton
@@ -32,6 +33,7 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:textOn="@string/cropper_lock_vertical"
             android:textOff="@string/cropper_lock_vertical"/>
         <Button

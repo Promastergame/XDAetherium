@@ -1,6 +1,8 @@
 package net.kdt.pojavlaunch.fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import net.kdt.pojavlaunch.TestStorageActivity;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,8 +18,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.core.content.pm.ShortcutInfoCompat;
+import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -51,7 +59,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
     private String mProfileKey;
     private MinecraftProfile mTempProfile = null;
     private String mValueToConsume = "";
-    private Button mSaveButton, mDeleteButton, mControlSelectButton, mGameDirButton, mVersionSelectButton;
+    private Button mSaveButton, mDeleteButton, mControlSelectButton, mGameDirButton, mVersionSelectButton, mShortcutButton;
     private Spinner mDefaultRuntime, mDefaultRenderer;
     private EditText mDefaultName, mDefaultJvmArgument;
     private TextView mDefaultPath, mDefaultVersion, mDefaultControl;
@@ -119,7 +127,13 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mDefaultVersion.setOnClickListener(versionSelectListener);
 
         // Set up the icon change click listener
-        mProfileIcon.setOnClickListener(v -> CropperUtils.startCropper(mCropperLauncher));
+        mProfileIcon.setOnClickListener(v -> {
+            ProfileIconCache.dropIcon("temp_profile_icon_edit");
+            showIconSelectionDialog();
+        });
+
+        // Set up the shortcut creation click listener
+        mShortcutButton.setOnClickListener(v -> createShortcut());
 
         loadValues(LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, ""), view.getContext());
     }
@@ -235,6 +249,7 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
         mVersionSelectButton = view.findViewById(R.id.vprof_editor_version_button);
         mGameDirButton = view.findViewById(R.id.vprof_editor_path_button);
         mProfileIcon = view.findViewById(R.id.vprof_editor_profile_icon);
+        mShortcutButton = view.findViewById(R.id.vprof_editor_shortcut_button);
     }
 
     private void deleteProfile(){
@@ -315,5 +330,99 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
     @Override
     public void onFailed(Exception exception) {
         Tools.showErrorRemote(exception);
+    }
+
+    private void showIconSelectionDialog() {
+        Context context = requireContext();
+        CharSequence[] options = new CharSequence[]{
+                getString(R.string.profile_icon_choose_preset),
+                getString(R.string.profile_icon_choose_custom),
+                getString(R.string.profile_icon_reset)
+        };
+
+        new AlertDialog.Builder(context)
+                .setItems(options, (dialog, which) -> {
+                    if (which == 0) {
+                        showPresetIconSelectionDialog();
+                    } else if (which == 1) {
+                        CropperUtils.startCropper(mCropperLauncher);
+                    } else if (which == 2) {
+                        mTempProfile.icon = "default";
+                        mProfileIcon.setImageDrawable(
+                                ProfileIconCache.fetchIcon(getResources(), "temp_profile_icon_edit", mTempProfile.icon)
+                        );
+                    }
+                })
+                .show();
+    }
+
+    private void showPresetIconSelectionDialog() {
+        Context context = requireContext();
+        final List<String> presetNames = new ArrayList<>(Arrays.asList("default", "fabric", "quilt"));
+
+        try {
+            String[] assetIcons = context.getAssets().list("icons");
+            if (assetIcons != null) {
+                for (String file : assetIcons) {
+                    if (file.endsWith(".webp") || file.endsWith(".png")) {
+                        String nameWithoutExtension = file.substring(0, file.lastIndexOf('.'));
+                        if (!presetNames.contains(nameWithoutExtension)) {
+                            presetNames.add(nameWithoutExtension);
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            Log.e("ProfileEditor", "Failed to list asset icons", e);
+        }
+
+        CharSequence[] items = presetNames.toArray(new CharSequence[0]);
+        new AlertDialog.Builder(context)
+                .setTitle(R.string.profile_icon_choose_preset)
+                .setItems(items, (dialog, which) -> {
+                    String selectedPreset = presetNames.get(which);
+                    mTempProfile.icon = selectedPreset;
+                    mProfileIcon.setImageDrawable(
+                            ProfileIconCache.fetchIcon(getResources(), "temp_profile_icon_edit", mTempProfile.icon)
+                    );
+                })
+                .show();
+    }
+
+    private void createShortcut() {
+        Context context = requireContext();
+        if (mProfileKey == null) {
+            Toast.makeText(context, R.string.error_no_version, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (ShortcutManagerCompat.isRequestPinShortcutSupported(context)) {
+            Intent shortcutIntent = new Intent(context, TestStorageActivity.class);
+            shortcutIntent.setAction("net.kdt.pojavlaunch.ACTION_LAUNCH_PROFILE");
+            shortcutIntent.putExtra("profile_key", mProfileKey);
+            shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            String label = mTempProfile != null && mTempProfile.name != null ? mTempProfile.name : mProfileKey;
+
+            IconCompat iconCompat;
+            Drawable drawable = ProfileIconCache.fetchIcon(getResources(), mProfileKey, mTempProfile.icon);
+            if (drawable instanceof BitmapDrawable) {
+                Bitmap bmp = ((BitmapDrawable) drawable).getBitmap();
+                iconCompat = IconCompat.createWithBitmap(bmp);
+            } else {
+                iconCompat = IconCompat.createWithResource(context, R.mipmap.ic_launcher);
+            }
+
+            ShortcutInfoCompat shortcutInfo = new ShortcutInfoCompat.Builder(context, mProfileKey)
+                    .setShortLabel(label)
+                    .setIcon(iconCompat)
+                    .setIntent(shortcutIntent)
+                    .build();
+
+            ShortcutManagerCompat.requestPinShortcut(context, shortcutInfo, null);
+            Toast.makeText(context, R.string.shortcut_created_toast, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, R.string.shortcut_not_supported_toast, Toast.LENGTH_LONG).show();
+        }
     }
 }
