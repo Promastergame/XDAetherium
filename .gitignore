@@ -37,3 +37,16 @@ hs_err_pid*.log
 .env
 .env.*
 google-services.json
+
+# Ignore compiled Java class files and build artifacts
+*.class
+**/bin/
+**/bin/**
+
+# IDE and build tool outputs already covered, ensure bin/out are ignored
+out/
+
+# Ignore compiled aar/jar artifacts under libs or generated folders
+**/libs/**/*.jar
+**/libs/**/*.aar
+
