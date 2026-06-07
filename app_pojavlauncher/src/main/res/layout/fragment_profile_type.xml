@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
 
         android:paddingHorizontal="@dimen/fragment_padding_medium"
         android:orientation="vertical">
@@ -88,29 +88,6 @@
             android:text="@string/profile_type_install_modloader" />
 
         <com.kdt.mcgui.MineButton
-            android:id="@+id/modded_profile_modpack"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/padding_large"
-            android:layout_marginTop="@dimen/padding_large"
-            android:text="@string/modpack_install_button" />
-
-        <TextView
-            android:id="@+id/title_hard_mods_textview"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/padding_extra_extra_large"
-            android:text="@string/create_profile_hard_to_install_mods" />
-
-        <View
-            android:id="@+id/view_hard_mods"
-            style="@style/ThickDivider"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/padding_large" />
-
-        <com.kdt.mcgui.MineButton
             android:id="@+id/modded_profile_btw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -119,13 +96,12 @@
             android:text="@string/profile_type_create_btw" />
 
         <com.kdt.mcgui.MineButton
-            android:id="@+id/modded_profile_mite"
+            android:id="@+id/modded_profile_modpack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/padding_large"
             android:layout_marginTop="@dimen/padding_large"
-            android:layout_marginBottom="@dimen/padding_extra_extra_large"
-            android:text="@string/profile_type_create_mite" />
+            android:text="@string/modpack_install_button" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

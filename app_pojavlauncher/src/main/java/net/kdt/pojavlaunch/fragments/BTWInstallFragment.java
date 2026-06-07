@@ -24,8 +24,6 @@ import java.util.concurrent.CancellationException;
 
 public class BTWInstallFragment extends Fragment implements ModloaderDownloadListener {
     public static final String TAG = "BTWInstallFragment";
-    private static final String BTW_MODRINTH_URL = "https://cdn.modrinth.com/data/PiC4CKoa/versions/Pbz5N4Ul/btwce-3.1.0.jar?mr_download_reason=standalone";
-    private static final String BTW_WIKI_URL = "https://wiki.btwce.com";
     private static final String EXTRA_TAG = "BTWInstallFragment_proxy";
 
     private CheckBox mCheckboxFlatcore;
@@ -48,8 +46,6 @@ public class BTWInstallFragment extends Fragment implements ModloaderDownloadLis
         mProgressBar = view.findViewById(R.id.btw_progress_bar);
         mInstallButton = view.findViewById(R.id.btw_install_button);
 
-        view.findViewById(R.id.btw_modrinth_download_button).setOnClickListener(v -> Tools.openURL(requireActivity(), BTW_MODRINTH_URL));
-        view.findViewById(R.id.btw_wiki_button).setOnClickListener(v -> Tools.openURL(requireActivity(), BTW_WIKI_URL));
         mInstallButton.setOnClickListener(this::onClickInstall);
 
         ModloaderListenerProxy proxy = getListenerProxy();

@@ -75,35 +75,6 @@ public class NewJREUtil {
         return MathUtils.findNearestPositive(targetVersion, runtimeList, (runtime)->runtime.majorVersion);
     }
 
-    private static Runtime getInstalledRuntime(int javaVersion) {
-        for (Runtime runtime : MultiRTUtils.getInstalledRuntimes()) {
-            if (runtime.javaVersion == javaVersion) return runtime;
-        }
-        return null;
-    }
-
-    private static InternalRuntime getInternalRuntime(int javaVersion) {
-        for(InternalRuntime internalRuntime : InternalRuntime.values()) {
-            if(internalRuntime.majorVersion == javaVersion) return internalRuntime;
-        }
-        return null;
-    }
-
-    private static String getExactRuntimeNameIfAvailable(Activity activity, AssetManager assetManager, int javaVersion) {
-        Runtime installedRuntime = getInstalledRuntime(javaVersion);
-        if (installedRuntime != null) return installedRuntime.name;
-
-        InternalRuntime internalRuntime = getInternalRuntime(javaVersion);
-        if (internalRuntime != null && checkInternalRuntime(assetManager, internalRuntime)) return internalRuntime.name;
-
-        if (isJavaVersionAvailableForDownload(javaVersion)) {
-            tryDownloadRuntime(activity, javaVersion);
-            Runtime downloadedRuntime = getInstalledRuntime(javaVersion);
-            if (downloadedRuntime != null) return downloadedRuntime.name;
-        }
-        return null;
-    }
-
 
     public static boolean isLegacyVersion(String id, String inheritsFrom) {
         if (id == null) return false;
@@ -175,9 +146,9 @@ public class NewJREUtil {
         String profileRuntime = Tools.getSelectedRuntime(minecraftProfile);
         Runtime runtime = MultiRTUtils.read(profileRuntime);
         
-        boolean isRuntimeAcceptable = runtime != null && (legacy ? (runtime.javaVersion == 8) : (runtime.javaVersion == gameRequiredVersion));
+        boolean isRuntimeAcceptable = legacy ? (runtime.javaVersion == 8) : (runtime.javaVersion >= gameRequiredVersion);
         
-        // Partly trust the user with his own exact-version selection, if the game can even try to run in this case
+        // Partly trust the user with his own selection, if the game can even try to run in this case
         if (isRuntimeAcceptable) {
             // Check whether the selection is an internal runtime
             InternalRuntime internalRuntime = getInternalRuntime(runtime);
@@ -189,21 +160,19 @@ public class NewJREUtil {
             return true;
         }
 
-        try {
-            String exactRuntimeName = getExactRuntimeNameIfAvailable(activity, assetManager, gameRequiredVersion);
-            if (exactRuntimeName != null) {
-                minecraftProfile.javaDir = Tools.LAUNCHERPROFILES_RTPREFIX + exactRuntimeName;
-                LauncherProfiles.write();
-                return true;
-            }
-        } catch (Exception e) {
-            Tools.showError(activity, e);
-            return false;
-        }
-
         if (legacy || gameRequiredVersion == 8) {
-            showRuntimeFail(activity, 8);
-            return false;
+            Runtime installed8 = MultiRTUtils.read("External-8");
+            if (installed8 == null || installed8.javaVersion != 8) {
+                try {
+                    tryDownloadRuntime(activity, 8);
+                } catch (Exception e) {
+                    Tools.showError(activity, e);
+                    return false;
+                }
+            }
+            minecraftProfile.javaDir = Tools.LAUNCHERPROFILES_RTPREFIX + "External-8";
+            LauncherProfiles.write();
+            return true;
         }
 
         // If the runtime version selected by the user is not appropriate for this version (which means the game won't run at all)
