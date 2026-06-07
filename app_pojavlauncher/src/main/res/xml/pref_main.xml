@@ -68,6 +68,7 @@
             android:title="@string/preference_experimental_title"
             android:summary="@string/preference_experimental_description"
             android:fragment="net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceExperimentalFragment"
+            android:icon="@drawable/ic_setting_experimental"
             />
     </PreferenceCategory>
 
@@ -75,23 +76,27 @@
         android:title="@string/preference_force_english_title"
         android:key="force_english"
         android:summary="@string/preference_force_english_description"
+        android:icon="@drawable/ic_language"
         />
 
     <SwitchPreference
         android:title="@string/preference_force_russian_title"
         android:key="force_russian"
         android:summary="@string/preference_force_russian_description"
+        android:icon="@drawable/ic_language"
         />
 
     <Preference
         android:title="@string/preference_ask_for_notification_title"
         android:summary="@string/preference_ask_for_notification_description"
         android:key="notification_permission_request"
+        android:icon="@drawable/ic_setting_warning"
         />
     <Preference
         android:title="@string/preference_ask_for_microphone_title"
         android:summary="@string/preference_ask_for_microphone_description"
         android:key="microphone_permission_request"
+        android:icon="@drawable/ic_setting_microphone"
         />
 
 

@@ -36,6 +36,8 @@ public class ProfileTypeSelectFragment extends Fragment {
                 tryInstall(ModloaderSelectFragment.class, ModloaderSelectFragment.TAG));
         view.findViewById(R.id.modded_profile_btw).setOnClickListener(v ->
                 tryInstall(BTWInstallFragment.class, BTWInstallFragment.TAG));
+        view.findViewById(R.id.modded_profile_mite).setOnClickListener(v ->
+                tryInstall(MITEInstallFragment.class, MITEInstallFragment.TAG));
         view.findViewById(R.id.modded_profile_modpack).setOnClickListener((v)->
                 tryInstall(ModpackCreateFragment.class, ModpackCreateFragment.TAG));
     }

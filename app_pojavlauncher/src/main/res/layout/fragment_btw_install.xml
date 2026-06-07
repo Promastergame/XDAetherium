@@ -45,6 +45,30 @@
             android:textSize="14sp"
             android:layout_marginBottom="@dimen/padding_large" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btw_install_modrinth_note"
+            android:textColor="#CCCCCC"
+            android:textSize="14sp"
+            android:layout_marginBottom="@dimen/padding_large" />
+
+        <com.kdt.mcgui.MineButton
+            android:id="@+id/btw_modrinth_download_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btw_install_download_modrinth"
+            android:layout_marginHorizontal="@dimen/padding_large"
+            android:layout_marginBottom="@dimen/padding_large" />
+
+        <com.kdt.mcgui.MineButton
+            android:id="@+id/btw_wiki_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/open_wiki"
+            android:layout_marginHorizontal="@dimen/padding_large"
+            android:layout_marginBottom="@dimen/padding_large" />
+
         <!-- Map Selection Title -->
         <TextView
             android:layout_width="wrap_content"

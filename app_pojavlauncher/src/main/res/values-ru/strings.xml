@@ -300,6 +300,7 @@
     <string name="create_profile_vanilla">Немодифицированная версия</string>
     <string name="create_profile_vanilla_like_versions">Стандартные версии</string>
     <string name="create_profile_modded_versions">Загрузчики модов</string>
+    <string name="create_profile_hard_to_install_mods">Сложные в установке моды</string>
     <string name="fabric_dl_loader_title">Выбор версий</string>
     <string name="of_dl_select_version">Выбор версии OptiFine</string>
     <string name="of_dl_failed_to_scrape">Не удалось собрать данные для установки OptiFine.</string>
@@ -324,6 +325,10 @@
     <string name="modpack_install_modloader_download_failed">Не удалось загрузить файлы загрузчика модов</string>
     <string name="modpack_install_download_failed">Не удалось загрузить файлы сборки</string>
     <string name="modpack_install_button">Сборка модов</string>
+    <string name="modpack_browse_modrinth">Сборки Modrinth</string>
+    <string name="modpack_browse_curseforge">Сборки CurseForge</string>
+    <string name="modpack_browse_all">Все сборки</string>
+    <string name="modpack_import_file">Импорт ZIP или MRPACK</string>
     <string name="notif_error_occured">Возникла ошибка</string>
     <string name="notif_error_occured_desc">Нажмите для получения дополнительных сведений</string>
     <string name="fabric_dl_only_stable">Только стабильные версии</string>
@@ -456,7 +461,8 @@
 
     <!-- Profile Type Option Strings -->
     <string name="profile_type_install_modloader">Установить загрузчик модов</string>
-    <string name="profile_type_create_btw">Создать профиль Better Than Wolves</string>
+    <string name="profile_type_create_btw">Better Than Wolves: CE</string>
+    <string name="profile_type_create_mite">MITE (Minecraft Is Too Easy)</string>
 
     <!-- Cursor Store Strings -->
     <string name="cursor_store_title">Магазин курсоров</string>
@@ -526,6 +532,17 @@
     <!-- Better Than Wolves Installation Strings -->
     <string name="btw_install_subtitle">Установка легендарного хардкорного мода</string>
     <string name="btw_install_desc">Better Than Wolves (BTW) — это глобальный мод, который превращает Minecraft в глубокую и чрезвычайно сложную игру на выживание. Установка будет произведена на версию 1.5.2 с поддержкой Cursed Fabric.</string>
+    <string name="btw_install_modrinth_note">BTW CE 3.1.0 добавлен как быстрая ссылка на скачивание, но ему всё равно нужна особая legacy-установка, и обычная папка mods может не подойти. Старый установщик ниже оставлен как запасной вариант.</string>
+    <string name="btw_install_download_modrinth">Скачать BTW CE 3.1.0</string>
+    <string name="open_wiki">Открыть вики</string>
+    <string name="mite_install_title">MITE (Minecraft Is Too Easy)</string>
+    <string name="mite_install_subtitle">Legacy-моды на выживание со сложной установкой</string>
+    <string name="mite_install_desc">MITE и MITE Renewed — сложные в установке legacy-моды. Эти кнопки открывают официальные загрузки; перед установкой прочитайте вики, потому что простое добавление в папку mods может не сработать.</string>
+    <string name="mite_install_official_r196">Официальная R196 для Minecraft 1.6.4</string>
+    <string name="mite_install_renewed_0272">MITE Renewed 0.2.7.2</string>
+    <string name="sodium_override_title">Запускать с Sodium всё равно</string>
+    <string name="sodium_override_summaryOff">Sodium может вызывать графические ошибки и вылеты. Включайте только если понимаете риск.</string>
+    <string name="sodium_override_summaryOn">Sodium не поддерживается. Возможны ошибки и вылеты.</string>
     <string name="btw_install_maps_title">Дополнительные карты для выживания:</string>
     <string name="btw_install_map_flatcore">Flatcore Survival (Сложная выживаемость на плоской карте)</string>
     <string name="btw_install_map_adventure">BTW Custom Adventure (Специальная приключенческая карта)</string>
