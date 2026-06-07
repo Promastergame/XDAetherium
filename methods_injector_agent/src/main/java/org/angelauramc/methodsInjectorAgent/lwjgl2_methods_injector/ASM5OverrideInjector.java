@@ -21,14 +21,14 @@ public class ASM5OverrideInjector extends ClassVisitor {
 
     public static void premain(String args, Instrumentation inst) {
         inst.addTransformer(new ClassFileTransformer() {
-            public byte[] transform(ClassLoader l, String name, Class c, ProtectionDomain d, byte[] b) {
+            public byte[] transform(ClassLoader l, String name, Class<?> c, ProtectionDomain d, byte[] b) {
                 if (name.endsWith("ClassVisitor") ||
                     name.endsWith("MethodVisitor") ||
                     name.endsWith("FieldVisitor") ||
                     name.endsWith("AnnotationVisitor") ||
                     name.endsWith("SignatureVisitor")) {
                     try { // Minecraft makes it ugly if we use println
-                        System.out.print("Amethyst-Android: Modifying ASM classes for ASM4 comaptibility...\n");
+                        System.out.print("XDAetherium: Modifying ASM classes for ASM4 comaptibility...\n");
                     } catch (Exception ignored) {}
                     ClassReader cr = new ClassReader(b);
                     ClassWriter cw = new ClassWriter(cr, 0);

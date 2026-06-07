@@ -24,13 +24,14 @@ public class ALC10Injector extends ClassVisitor implements ClassFileTransformer 
 
     public static void premain(String args, Instrumentation inst) {
         inst.addTransformer(new ClassFileTransformer() {
-            public byte[] transform(ClassLoader l, String name, Class c,
+            public byte[] transform(ClassLoader l, String name, Class<?> c,
                                     ProtectionDomain d, byte[] b) {
                 if (!"org/lwjgl/openal/ALC10".equals(name)) {
                     return null;
                 }
                 try { // Minecraft makes it ugly if we use println
                     System.out.write("Amethyst-Android: Adding missing LWJGL2 methods for better sound mod compatibility...\n".getBytes());
+                    System.out.write("XDAetherium: Adding missing LWJGL2 methods for better sound mod compatibility...\n".getBytes());
                     System.out.flush();
                 } catch (Exception ignored) {}
                 ClassReader cr = new ClassReader(b);

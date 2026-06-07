@@ -10,11 +10,12 @@ import java.util.Set;
 import org.lwjgl.*;
 import java.util.function.IntFunction;
 
-import static org.lwjgl.system.APIUtil.*;
+ 
 import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /** Defines the capabilities of an OpenGL context. */
+@SuppressWarnings("unused")
 public final class GLCapabilities {
 
     static final int ADDRESS_BUFFER_SIZE = 2226;

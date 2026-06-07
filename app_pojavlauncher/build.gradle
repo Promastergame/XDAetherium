@@ -58,7 +58,7 @@ def getCFApiKey = {
     if(curseforgeKeyFile.canRead() && curseforgeKeyFile.isFile()) {
         return curseforgeKeyFile.text;
     }
-    logger.warn('BUILD: You have no CurseForge key, the curseforge api will get disabled !');
+    logger.info('BUILD: CurseForge key not provided; CurseForge-related features will remain disabled.');
     return "DUMMY";
 }
 
@@ -115,7 +115,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "org.angelauramc.amethyst"
+        applicationId "org.xdaetherium.xdaetherium"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode 30000000
@@ -142,15 +142,17 @@ android {
             signingConfig signingConfigs.customDebug
             resValue "string", "app_name", "XDAetherium (Debug)"
             resValue "string", "app_short_name", "XDAetherium (Debug)"
-            resValue 'string', 'application_package', 'org.angelauramc.amethyst.debug'
-            resValue 'string', 'storageProviderAuthorities', 'org.angelauramc.amethyst.scoped.gamefolder.debug'
-            resValue 'string', 'shareProviderAuthority', 'org.angelauramc.amethyst.scoped.controlfolder.debug'
+            resValue 'string', 'application_package', 'org.xdaetherium.xdaetherium.debug'
+            resValue 'string', 'storageProviderAuthorities', 'org.xdaetherium.xdaetherium.scoped.gamefolder.debug'
+            resValue 'string', 'shareProviderAuthority', 'org.xdaetherium.xdaetherium.scoped.controlfolder.debug'
         }
         proguard {
-            initWith debug
+            initWith release
+            debuggable false
             minifyEnabled true
             shrinkResources true
         }
+
         proguardNoDebug {
             initWith proguard
             debuggable false
@@ -166,8 +168,8 @@ android {
             // debuggable = true
             resValue "string", "app_name", "XDAetherium"
             resValue "string", "app_short_name", "XDAetherium"
-            resValue 'string', 'storageProviderAuthorities', 'org.angelauramc.amethyst.scoped.gamefolder'
-            resValue 'string', 'application_package', 'org.angelauramc.amethyst'
+            resValue 'string', 'storageProviderAuthorities', 'org.xdaetherium.xdaetherium.scoped.gamefolder'
+            resValue 'string', 'application_package', 'org.xdaetherium.xdaetherium'
         }
         gplay {
             initWith release

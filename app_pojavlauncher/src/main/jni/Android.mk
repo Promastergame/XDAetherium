@@ -86,5 +86,9 @@ LOCAL_SRC_FILES := xawt_fake.c
 include $(BUILD_SHARED_LIBRARY)
 
 # delete fake libs after linked
-$(info $(shell (rm $(HERE_PATH)/../jniLibs/*/libawt_headless.so)))
+ifeq ($(OS),Windows_NT)
+$(info $(shell if exist $(HERE_PATH)/../jniLibs/*/libawt_headless.so del /q $(HERE_PATH)/../jniLibs/*/libawt_headless.so))
+else
+$(info $(shell rm -f $(HERE_PATH)/../jniLibs/*/libawt_headless.so))
+endif
 

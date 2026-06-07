@@ -136,6 +136,7 @@ public final class CacheUtil_J8 {
         }
     }
 
+    @SuppressWarnings("unused")
     private static boolean isDnsCacheEntryExpired(String host) {
         return null == host || "0.0.0.0".equals(host);
     }

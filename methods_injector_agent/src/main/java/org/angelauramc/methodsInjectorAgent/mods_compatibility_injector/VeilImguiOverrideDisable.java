@@ -21,7 +21,7 @@ public class VeilImguiOverrideDisable extends ClassVisitor implements ClassFileT
 
     public static void premain(String args, Instrumentation inst) {
         inst.addTransformer(new ClassFileTransformer() {
-            public byte[] transform(ClassLoader l, String name, Class c,
+            public byte[] transform(ClassLoader l, String name, Class<?> clazz,
                                     ProtectionDomain d, byte[] b) {
                 if (!"foundry/veil/impl/client/imgui/VeilImGuiImpl".equals(name)) {
                     return null;

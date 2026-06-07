@@ -300,7 +300,7 @@ public class CacheUtilCommons {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @SuppressWarnings({"CommentedOutCode", "SameParameterValue"})
+    @SuppressWarnings({"CommentedOutCode", "SameParameterValue", "unused"})
     private static String getSystemProperty(final String property) {
         try {
             return System.getProperty(property);

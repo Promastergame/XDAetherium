@@ -27,6 +27,7 @@ import java.util.Set;
  * structure like {@link ArrayMap}.
  * @hide
  */
+@SuppressWarnings("unchecked")
 abstract class MapCollections<K, V> {
     EntrySet mEntrySet;
     KeySet mKeySet;
@@ -493,8 +494,7 @@ abstract class MapCollections<K, V> {
     public <T> T[] toArrayHelper(T[] array, int offset) {
         final int N  = colGetSize();
         if (array.length < N) {
-            @SuppressWarnings("unchecked") T[] newArray
-                = (T[]) Array.newInstance(array.getClass().getComponentType(), N);
+            T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), N);
             array = newArray;
         }
         for (int i=0; i<N; i++) {

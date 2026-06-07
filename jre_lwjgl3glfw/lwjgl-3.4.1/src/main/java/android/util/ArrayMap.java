@@ -42,8 +42,10 @@ import java.util.Set;
  * item, it may reduce the capacity to better match the current size.  In the future an
  * explicit call to set the capacity should turn off this aggressive shrinking behavior.</p>
  */
+@SuppressWarnings("unchecked")
 public final class ArrayMap<K, V> implements Map<K, V> {
     private static final boolean DEBUG = false;
+    @SuppressWarnings("unused")
     private static final String TAG = "ArrayMap";
 
     /**
@@ -65,7 +67,7 @@ public final class ArrayMap<K, V> implements Map<K, V> {
     /**
      * @hide Special immutable empty ArrayMap.
      */
-    public static final ArrayMap EMPTY = new ArrayMap(true);
+    public static final ArrayMap<?,?> EMPTY = new ArrayMap<>(true);
 
     /**
      * Caches of small array objects to avoid spamming garbage.  The cache

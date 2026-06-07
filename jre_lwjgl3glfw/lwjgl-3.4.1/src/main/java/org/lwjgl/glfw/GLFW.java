@@ -541,12 +541,12 @@ public class GLFW
         mGLFWWindowMap = new ArrayMap<>();
 
         mGLFWVideoMode = new GLFWVidMode(ByteBuffer.allocateDirect(GLFWVidMode.SIZEOF));
-        memPutInt(mGLFWVideoMode.address() + mGLFWVideoMode.WIDTH, mGLFWWindowWidth);
-        memPutInt(mGLFWVideoMode.address() + mGLFWVideoMode.HEIGHT, mGLFWWindowHeight);
-        memPutInt(mGLFWVideoMode.address() + mGLFWVideoMode.REDBITS, 8);
-        memPutInt(mGLFWVideoMode.address() + mGLFWVideoMode.GREENBITS, 8);
-        memPutInt(mGLFWVideoMode.address() + mGLFWVideoMode.BLUEBITS, 8);
-        memPutInt(mGLFWVideoMode.address() + mGLFWVideoMode.REFRESHRATE, 60);
+        memPutInt(mGLFWVideoMode.address() + GLFWVidMode.WIDTH, mGLFWWindowWidth);
+        memPutInt(mGLFWVideoMode.address() + GLFWVidMode.HEIGHT, mGLFWWindowHeight);
+        memPutInt(mGLFWVideoMode.address() + GLFWVidMode.REDBITS, 8);
+        memPutInt(mGLFWVideoMode.address() + GLFWVidMode.GREENBITS, 8);
+        memPutInt(mGLFWVideoMode.address() + GLFWVidMode.BLUEBITS, 8);
+        memPutInt(mGLFWVideoMode.address() + GLFWVidMode.REFRESHRATE, 60);
 
         // A way to generate key code names
         Field[] thisFieldArr = GLFW.class.getFields();
@@ -637,8 +637,8 @@ public class GLFW
         mGLFWWindowWidth = width;
         mGLFWWindowHeight = height;
         if (mGLFWVideoMode == null) return;
-        memPutInt(mGLFWVideoMode.address() + (long) mGLFWVideoMode.WIDTH, mGLFWWindowWidth);
-        memPutInt(mGLFWVideoMode.address() + (long) mGLFWVideoMode.HEIGHT, mGLFWWindowHeight);
+        memPutInt(mGLFWVideoMode.address() + (long) GLFWVidMode.WIDTH, mGLFWWindowWidth);
+        memPutInt(mGLFWVideoMode.address() + (long) GLFWVidMode.HEIGHT, mGLFWWindowHeight);
     }
 
     public static GLFWWindowProperties internalGetWindow(long window) {
