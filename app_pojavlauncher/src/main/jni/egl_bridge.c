@@ -162,7 +162,7 @@ int pojavInitOpenGL() {
         pojav_environ->force_vsync = true;
 
     // NOTE: Override for now.
-    const char *renderer = getenv("AMETHYST_RENDERER");
+    const char *renderer = getenv("XDAETHERIUM_RENDERER");
     if (strncmp("opengles", renderer, 8) == 0) {
         pojav_environ->config_renderer = RENDERER_GL4ES;
         if (!strcmp(renderer, "opengles3_desktopgl_zink_kopper")) {
@@ -209,7 +209,7 @@ EXTERNAL_API void pojavSetWindowHint(int hint, int value) {
             // pojavInitVulkan();
             break;
         case GLFW_OPENGL_API:
-            const char *renderer = getenv("AMETHYST_RENDERER");
+            const char *renderer = getenv("XDAETHERIUM_RENDERER");
             if (strncmp("opengles", renderer, 8) == 0) {
                 pojav_environ->config_renderer = RENDERER_GL4ES;
             } else if (strcmp(renderer, "vulkan_zink") == 0) {

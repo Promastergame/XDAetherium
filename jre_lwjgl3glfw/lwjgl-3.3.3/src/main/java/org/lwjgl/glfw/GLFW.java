@@ -1017,7 +1017,7 @@ public class GLFW
         boolean turnipLoad = System.getenv("POJAV_LOAD_TURNIP") != null &&
                 System.getenv("POJAV_LOAD_TURNIP").equals("1");
         // These values can be found at headings_array.xml
-        String glDriver = System.getenv("AMETHYST_RENDERER");
+        String glDriver = System.getenv("XDAETHERIUM_RENDERER");
         if (turnipLoad && glDriver.equals("vulkan_zink")) {
             glMajor = 4;
             glMinor = 6;

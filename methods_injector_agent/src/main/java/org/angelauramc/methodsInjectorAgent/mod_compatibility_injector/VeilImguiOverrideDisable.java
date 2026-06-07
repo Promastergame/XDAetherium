@@ -19,7 +19,7 @@ public class VeilImguiOverrideDisable extends ClassVisitor implements ClassFileT
 
     public static void premain(String args, Instrumentation inst) {
         inst.addTransformer(new ClassFileTransformer() {
-            public byte[] transform(ClassLoader l, String name, Class c,
+            public byte[] transform(ClassLoader l, String name, Class<?> clazz,
                                     ProtectionDomain d, byte[] b) {
                 if (!"foundry/veil/impl/client/imgui/VeilImGuiImpl".equals(name)) {
                     return null;
@@ -45,7 +45,7 @@ public class VeilImguiOverrideDisable extends ClassVisitor implements ClassFileT
             if (name.equals("setImGuiPath")
                     && desc.equals("()V")) {
                 try { // Minecraft makes it ugly if we use println
-                    System.out.write(("Amethyst-Android: Patching VeilImGuiImpl for faulty setImGuiPath()...\n" +
+                    System.out.write(("XDAetherium: Patching VeilImGuiImpl for faulty setImGuiPath()...\n" +
                             "This issue is fixed in Veil 3.1.1 and above. See https://github.com/FoundryMC/Veil/commit/8e0e09365049a106bfa3634e2ed78a0310c5b4df\n" +
                             "The intended target of this patch is Veil 3.1.0 and below. If you see this log output without Veil 3.1.0 or lower running, please send a bug report to Amethyst-Android.\n" +
                             "https://github.com/AngelAuraMC/Amethyst-Android/issues/new?template=bug_report.yml").getBytes());

@@ -30,7 +30,6 @@ public class ALC10Injector extends ClassVisitor implements ClassFileTransformer 
                     return null;
                 }
                 try { // Minecraft makes it ugly if we use println
-                    System.out.write("Amethyst-Android: Adding missing LWJGL2 methods for better sound mod compatibility...\n".getBytes());
                     System.out.write("XDAetherium: Adding missing LWJGL2 methods for better sound mod compatibility...\n".getBytes());
                     System.out.flush();
                 } catch (Exception ignored) {}
