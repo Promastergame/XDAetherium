@@ -10,6 +10,7 @@ public class SearchFilters {
     public String name;
     @Nullable public String mcVersion;
     @Nullable public String modLoader;
+    @Nullable public Integer apiSource;
     public boolean onlyCompatible;
 
 }

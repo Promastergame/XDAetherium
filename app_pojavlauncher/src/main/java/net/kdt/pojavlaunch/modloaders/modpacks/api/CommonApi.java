@@ -54,6 +54,11 @@ public class CommonApi implements ModpackApi {
 
         Future<?>[] futures = new Future<?>[mModpackApis.length];
         for(int i = 0; i < mModpackApis.length; i++) {
+            if (searchFilters.apiSource != null && searchFilters.apiSource != i) {
+                results[i] = new SearchResult();
+                results[i].results = new ModItem[0];
+                continue;
+            }
             // If custom modpack is enabled, we only want Modrinth API to prevent CurseForge failures and unfiltered search results
             if (!searchFilters.isModpack && mModpackApis[i] instanceof CurseforgeApi) {
                 continue;
