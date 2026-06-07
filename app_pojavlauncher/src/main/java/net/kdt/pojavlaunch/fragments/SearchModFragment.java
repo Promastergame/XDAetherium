@@ -30,7 +30,6 @@ import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 public class SearchModFragment extends Fragment implements ModItemAdapter.SearchResultCallback {
 
     public static final String TAG = "SearchModFragment";
-    public static final String ARG_MODPACK_SOURCE = "modpack_source";
     private View mOverlay;
     private float mOverlayTopCache; // Padding cache reduce resource lookup
 
@@ -72,9 +71,6 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
                 mSearchFilters.isModpack = false;
                 mSearchFilters.mcVersion = getArguments().getString("mc_version");
                 mSearchFilters.modLoader = getArguments().getString("mod_loader");
-            }
-            if (getArguments().containsKey(ARG_MODPACK_SOURCE)) {
-                mSearchFilters.apiSource = getArguments().getInt(ARG_MODPACK_SOURCE);
             }
         }
     }
