@@ -1430,11 +1430,21 @@ public final class Tools {
     }
 
     public static String read(String path) throws IOException {
-        return read(new FileInputStream(path));
+        return read(new File(path));
     }
 
     public static String read(File path) throws IOException {
-        return read(new FileInputStream(path));
+        String content = read(new FileInputStream(path));
+        if (path.getName().endsWith(".json") && content.contains("https://maven.legacyfabric.net/")) {
+            content = content.replace("https://maven.legacyfabric.net/", "https://repo.legacyfabric.net/");
+            try {
+                write(path.getAbsolutePath(), content);
+                Logger.appendToLog("Tools: Automatically patched deprecated legacyfabric URL in: " + path.getName());
+            } catch (Exception e) {
+                Logger.appendToLog("Tools: Failed to auto-patch legacyfabric URL in " + path.getName() + " - " + e.toString());
+            }
+        }
+        return content;
     }
 
     public static void write(String path, String content) throws IOException {

@@ -53,7 +53,8 @@
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginBottom="@dimen/padding_small" />
+            android:layout_marginBottom="@dimen/padding_small"
+            android:visibility="gone" />
 
         <CheckBox
             android:id="@+id/checkbox_map_flatcore"
@@ -61,7 +62,8 @@
             android:layout_height="wrap_content"
             android:text="@string/btw_install_map_flatcore"
             android:textColor="#CCCCCC"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:visibility="gone" />
 
         <CheckBox
             android:id="@+id/checkbox_map_adventure"
@@ -69,7 +71,8 @@
             android:layout_height="wrap_content"
             android:text="@string/btw_install_map_adventure"
             android:textColor="#CCCCCC"
-            android:layout_marginBottom="@dimen/padding_large" />
+            android:layout_marginBottom="@dimen/padding_large"
+            android:visibility="gone" />
 
         <!-- Installation Status and Progress -->
         <TextView

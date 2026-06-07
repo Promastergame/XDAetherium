@@ -422,11 +422,32 @@ public class MinecraftDownloader {
         return true;
     }
 
+    private boolean isValidZipFile(File file) {
+        if (file.length() < 22) {
+            net.kdt.pojavlaunch.Logger.appendToLog("MinecraftDownloader: File " + file.getName() + " has invalid size: " + file.length());
+            return false;
+        }
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(new java.io.FileInputStream(file))) {
+            int signature = dis.readInt();
+            boolean isValid = signature == 0x504B0304;
+            if (!isValid) {
+                net.kdt.pojavlaunch.Logger.appendToLog("MinecraftDownloader: File " + file.getName() + " has invalid zip signature: " + Integer.toHexString(signature));
+            }
+            return isValid;
+        } catch (IOException e) {
+            net.kdt.pojavlaunch.Logger.appendToLog("MinecraftDownloader: Failed to read zip signature of " + file.getName() + " - " + e.toString());
+            return false;
+        }
+    }
+
     private boolean isDownloadAlreadySatisfied(File targetFile, String sha1, long size) {
         if(!targetFile.isFile() || !targetFile.canRead()) return false;
         if(size > 0 && targetFile.length() == size) return true;
         if(Tools.isValidString(sha1)) return Tools.compareSHA1(targetFile, sha1);
-        return size <= 0;
+        if(targetFile.getName().endsWith(".jar") || targetFile.getName().endsWith(".aar")) {
+            return isValidZipFile(targetFile);
+        }
+        return size <= 0 && targetFile.length() > 0;
     }
 
     /**
@@ -679,6 +700,7 @@ public class MinecraftDownloader {
                     return null;
                 });
             }catch (Exception e) {
+                net.kdt.pojavlaunch.Logger.appendToLog("MinecraftDownloader: Failed to download " + mTargetPath.getName() + " from " + mTargetUrl + " - " + e.toString());
                 if(!mSkipIfFailed) throw e;
             }
             mProcessedFileCounter.incrementAndGet();

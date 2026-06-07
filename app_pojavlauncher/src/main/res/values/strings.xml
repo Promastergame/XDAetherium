@@ -611,12 +611,12 @@
 
     <!-- Better Than Wolves Installation Strings -->
     <string name="btw_install_subtitle">Installing the legendary hardcore mod</string>
-    <string name="btw_install_desc">Better Than Wolves (BTW) is a total conversion mod that turns Minecraft into a deep and extremely challenging survival game. The installation will target version 1.6.4 with Legacy Fabric support.</string>
+    <string name="btw_install_desc">Better Than Wolves (BTW) is a total conversion mod that turns Minecraft into a deep and extremely challenging survival game. The installation will target version 1.5.2 with Cursed Fabric support.</string>
     <string name="btw_install_maps_title">Optional survival maps:</string>
     <string name="btw_install_map_flatcore">Flatcore Survival (Challenging survival on a flat map)</string>
     <string name="btw_install_map_adventure">BTW Custom Adventure (Special adventure map)</string>
     <string name="btw_install_status_ready">Ready to install</string>
-    <string name="btw_install_btn">Install profile and maps</string>
+    <string name="btw_install_btn">Install profile</string>
     <string name="btw_install_running">Installation in progress…</string>
     <string name="btw_install_preparing">Preparing for installation…</string>
     <string name="btw_install_success">Installation completed successfully!</string>

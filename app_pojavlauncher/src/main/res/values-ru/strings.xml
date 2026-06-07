@@ -525,12 +525,12 @@
 
     <!-- Better Than Wolves Installation Strings -->
     <string name="btw_install_subtitle">Установка легендарного хардкорного мода</string>
-    <string name="btw_install_desc">Better Than Wolves (BTW) — это глобальный мод, который превращает Minecraft в глубокую и чрезвычайно сложную игру на выживание. Установка будет произведена на версию 1.6.4 с поддержкой Legacy Fabric.</string>
+    <string name="btw_install_desc">Better Than Wolves (BTW) — это глобальный мод, который превращает Minecraft в глубокую и чрезвычайно сложную игру на выживание. Установка будет произведена на версию 1.5.2 с поддержкой Cursed Fabric.</string>
     <string name="btw_install_maps_title">Дополнительные карты для выживания:</string>
     <string name="btw_install_map_flatcore">Flatcore Survival (Сложная выживаемость на плоской карте)</string>
     <string name="btw_install_map_adventure">BTW Custom Adventure (Специальная приключенческая карта)</string>
     <string name="btw_install_status_ready">Готов к установке</string>
-    <string name="btw_install_btn">Установить профиль и карты</string>
+    <string name="btw_install_btn">Установить профиль</string>
     <string name="btw_install_running">Установка выполняется…</string>
     <string name="btw_install_preparing">Подготовка к установке…</string>
     <string name="btw_install_success">Установка завершена успешно!</string>
